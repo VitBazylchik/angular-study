@@ -1,10 +1,13 @@
-<header>
-  <mat-card-header>
-    <mat-card-title>
-      <app-logo></app-logo>
-    </mat-card-title>
-    <mat-card-actions>
-      <app-log-button [btnText]='"User login"'></app-log-button>
-    </mat-card-actions>
-  </mat-card-header>
+<header class="header">
+  <div class="container">
+    <mat-card-header class="flex-around">
+      <mat-card-title>
+        <app-logo></app-logo>
+      </mat-card-title>
+      <mat-card-actions>
+        <app-log-button [btnText]='"User login"'></app-log-button>
+        <app-log-button [btnText]='"Log out"'></app-log-button>
+      </mat-card-actions>
+    </mat-card-header>
+  </div>
 </header>

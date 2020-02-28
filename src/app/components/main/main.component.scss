@@ -1,0 +1,21 @@
+@import "../../../assets/variables.scss";
+
+.add-button {
+  background-color: $btnBg;
+  color: $btnText;
+}
+
+.main {
+  background-color: $mainBg;
+  padding: 40px 0;
+}
+
+.add-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.more-button {
+  width: 100%;
+}

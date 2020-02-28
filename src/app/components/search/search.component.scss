@@ -1,0 +1,11 @@
+@import "../../../assets/variables.scss";
+
+.search-button {
+  color: $btnText;
+  background-color: $searchBtnBg;
+  margin-left: 10px;
+}
+
+.search-input {
+  min-width: 300px;
+}

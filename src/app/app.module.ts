@@ -14,6 +14,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { BreadcrumpsComponent } from './components/breadcrumps/breadcrumps.component';
 import { MainComponent } from './components/main/main.component';
 import { ListOfCoursesComponent } from './components/list-of-courses/list-of-courses.component';
+import { SearchComponent } from './components/search/search.component';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { CourseComponent } from './components/course/course.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,9 @@ import { ListOfCoursesComponent } from './components/list-of-courses/list-of-cou
     FooterComponent,
     BreadcrumpsComponent,
     MainComponent,
-    ListOfCoursesComponent
+    ListOfCoursesComponent,
+    SearchComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +39,8 @@ import { ListOfCoursesComponent } from './components/list-of-courses/list-of-cou
     MatCardModule,
     MatIconModule,
     MatButtonModule,
+    MatInputModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
