@@ -29,8 +29,10 @@ class TestCourseComponent {
 }
 
 describe('CourseComponent', () => {
-  let component: TestCourseComponent;
-  let fixture: ComponentFixture<TestCourseComponent>;
+  let component: CourseComponent;
+  let fixture: ComponentFixture<CourseComponent>;
+  let testHostComponent: TestCourseComponent;
+  let fixtureHost: ComponentFixture<TestCourseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,15 +42,20 @@ describe('CourseComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestCourseComponent);
+    fixture = TestBed.createComponent(CourseComponent);
     component = fixture.componentInstance;
   });
 
+  beforeEach(() => {
+    fixtureHost = TestBed.createComponent(TestCourseComponent);
+    testHostComponent = fixtureHost.componentInstance;
+  });
+
   it('should raise right id', () => {
-    fixture.detectChanges();
+    fixtureHost.detectChanges();
     const expectedId = 100;
-    const deleteBtn: DebugElement = fixture.debugElement.query(By.css('.delete-btn'));
+    const deleteBtn: DebugElement = fixtureHost.debugElement.query(By.css('.delete-btn'));
     deleteBtn.triggerEventHandler('click', null);
-    expect(component.id).toEqual(expectedId);
+    expect(testHostComponent.id).toEqual(expectedId);
   })
 });
