@@ -1,9 +1,10 @@
-<article class="course" [appFreshCourse]="course">
+<article class="course" [appFreshCourse]="course" [ngClass]="{top: course.topRated}">
   <div class="row align-items-center">
     <div class="col-9">
       <div class="flex-around">
         <mat-card-title>
           {{ course.title }}
+          <mat-icon *ngIf="course.topRated">star</mat-icon>
         </mat-card-title>
         <div class="information-container">
           <mat-card-subtitle class="information">

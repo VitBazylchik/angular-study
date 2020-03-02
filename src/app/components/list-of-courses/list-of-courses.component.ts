@@ -14,6 +14,7 @@ export class ListOfCoursesComponent implements OnInit {
       creationDate: Date.now() - 100,
       duration: 100,
       description: "BLALBLALBA",
+      topRated: false,
     },
     {
       id: 2,
@@ -21,6 +22,7 @@ export class ListOfCoursesComponent implements OnInit {
       creationDate: Date.now() - 10**10,
       duration: 120,
       description: "BLALBLALBgsdgfdgdfhfghA",
+      topRated: true,
     }
   ]
 
