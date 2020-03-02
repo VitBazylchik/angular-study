@@ -12,7 +12,6 @@ import { LogButtonComponent } from './components/log-button/log-button.component
 import { MatButtonModule } from '@angular/material/button';
 import { FooterComponent } from './components/footer/footer.component';
 import { BreadcrumpsComponent } from './components/breadcrumps/breadcrumps.component';
-import { MainComponent } from './components/main/main.component';
 import { ListOfCoursesComponent } from './components/list-of-courses/list-of-courses.component';
 import { SearchComponent } from './components/search/search.component';
 import { MatInputModule } from '@angular/material/input';
@@ -30,7 +29,6 @@ import { OrderByPipe } from './pipes/order-by/order-by.pipe';
     LogButtonComponent,
     FooterComponent,
     BreadcrumpsComponent,
-    MainComponent,
     ListOfCoursesComponent,
     SearchComponent,
     CourseComponent,

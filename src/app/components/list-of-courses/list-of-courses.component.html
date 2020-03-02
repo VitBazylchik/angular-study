@@ -1,15 +1,24 @@
 <!-- When we are using services to get courses ngIf directives will change. -->
-<h2 *ngIf="!courses.length" class="no-data">
-  No data. Feel free to add new course.
-</h2>
-
-<app-course 
-  *ngFor="let course of courses | orderBy"
-  [course]="course" 
-  (delete)="deleteCourse($event)"
-></app-course>
-
-<div *ngIf="courses.length" 
-  class="more-button-wrapper">
-  <button mat-raised-button class="more-button">Load more</button>
+<div class="section">
+  <div class="container">
+    <app-search></app-search>
+    <div class="add-button-wrapper">
+      <button mat-raised-button class="add-button">+ Add course</button>
+    </div>
+  
+    <h2 *ngIf="!courses.length" class="no-data">
+      No data. Feel free to add new course.
+    </h2>
+    
+    <app-course 
+      *ngFor="let course of courses | orderBy"
+      [course]="course" 
+      (delete)="deleteCourse($event)"
+    ></app-course>
+    
+    <div *ngIf="courses.length" 
+      class="more-button-wrapper">
+      <button mat-raised-button class="more-button">Load more</button>
+    </div>
+  </div>
 </div>
