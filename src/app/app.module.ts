@@ -19,6 +19,8 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { CourseComponent } from './components/course/course.component';
 import { FreshCourseDirective } from './directives//fresh-course/fresh-course.directive';
+import { DurationPipe } from './pipes/duration/duration.pipe';
+import { OrderByPipe } from './pipes/order-by/order-by.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { FreshCourseDirective } from './directives//fresh-course/fresh-course.di
     ListOfCoursesComponent,
     SearchComponent,
     CourseComponent,
-    FreshCourseDirective
+    FreshCourseDirective,
+    DurationPipe,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,

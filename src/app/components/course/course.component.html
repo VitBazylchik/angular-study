@@ -3,17 +3,17 @@
     <div class="col-9">
       <div class="flex-around">
         <mat-card-title>
-          {{ course.title }}
+          {{ course.title | uppercase }}
           <mat-icon *ngIf="course.topRated">star</mat-icon>
         </mat-card-title>
         <div class="information-container">
           <mat-card-subtitle class="information">
             <mat-icon class="info-icon">access_time</mat-icon>
-            Duration: {{ course.duration }} min
+            Duration: {{ course.duration | duration }}
           </mat-card-subtitle>
           <mat-card-subtitle class="information">
             <mat-icon class="info-icon">calendar_today</mat-icon>
-            Date: {{ course.creationDate }} 
+            Date: {{ course.creationDate | date: 'dd MMM yyyy' }} 
           </mat-card-subtitle>
         </div>
       </div>

@@ -19,10 +19,18 @@ export class ListOfCoursesComponent implements OnInit {
     {
       id: 2,
       title: "Title 2",
-      creationDate: Date.now() - 10**10,
+      creationDate: Date.now() - 10**11,
       duration: 120,
       description: "BLALBLALBgsdgfdgdfhfghA",
       topRated: true,
+    },
+    {
+      id: 3,
+      title: "Title 3",
+      creationDate: Date.now() - 10**10,
+      duration: 96,
+      description: "BLALBLALBgsdgfdgdfhfghA",
+      topRated: false,
     }
   ]
 
