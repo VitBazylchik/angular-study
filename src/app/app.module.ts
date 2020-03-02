@@ -18,6 +18,7 @@ import { SearchComponent } from './components/search/search.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { CourseComponent } from './components/course/course.component';
+import { FreshCourseDirective } from './directives//fresh-course/fresh-course.directive';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CourseComponent } from './components/course/course.component';
     MainComponent,
     ListOfCoursesComponent,
     SearchComponent,
-    CourseComponent
+    CourseComponent,
+    FreshCourseDirective
   ],
   imports: [
     BrowserModule,

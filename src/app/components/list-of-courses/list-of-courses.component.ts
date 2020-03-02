@@ -11,14 +11,14 @@ export class ListOfCoursesComponent implements OnInit {
     {
       id: 1,
       title: "Title 1",
-      creationDate: Date.now(),
+      creationDate: Date.now() - 100,
       duration: 100,
       description: "BLALBLALBA",
     },
     {
       id: 2,
       title: "Title 2",
-      creationDate: Date.now(),
+      creationDate: Date.now() - 10**10,
       duration: 120,
       description: "BLALBLALBgsdgfdgdfhfghA",
     }
