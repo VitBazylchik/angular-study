@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LogButtonComponent } from './log-button.component';
+<<<<<<< HEAD
+=======
+import { Component } from '@angular/core';
+import { By } from '@angular/platform-browser';
+>>>>>>> 77e0dbb863a62c119a4f77bebc513216a49dbaab
 
 describe('LogButtonComponent', () => {
   let component: LogButtonComponent;
