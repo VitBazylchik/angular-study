@@ -13,7 +13,7 @@ export class ListOfCoursesComponent implements OnInit {
       id: 1,
       title: "Title 1",
       creationDate: Date.now() - 100,
-      duration: 100,
+      duration: 59,
       description: "BLALBLALBA",
       topRated: false,
     },
