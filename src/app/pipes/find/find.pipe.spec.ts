@@ -1,8 +1,9 @@
-import { OrderByPipe } from './order-by.pipe';
+import { FindPipe } from './find.pipe';
+import { Course } from 'src/app/models/course';
 
-describe('OrderByPipe', () => {
-  const pipe = new OrderByPipe();
-  const courses = [
+describe('FindPipe', () => {
+  const pipe = new FindPipe();
+  const courses: Course[] = [
     {
       id: 1,
       title: "TTTitle 1",
@@ -27,26 +28,11 @@ describe('OrderByPipe', () => {
       description: "BLALBLALBgsdgfdgdfhfghA",
       topRated: false,
     }
-  ];
+  ]
 
-  it('should return sorted by date courses array', () => {
-    const sorted = [
-      {
-        id: 1,
-        title: "TTTitle 1",
-        creationDate: 1483223594094 - 100,
-        duration: 100,
-        description: "BLALBLALBA",
-        topRated: false,
-      },
-      {
-        id: 3,
-        title: "ETitle 3",
-        creationDate: 1483223594094 - 10**10,
-        duration: 96,
-        description: "BLALBLALBgsdgfdgdfhfghA",
-        topRated: false,
-      },
+  it('should filter courses using an input text', () => {
+    const input = 'title';
+    const expectedList = [
       {
         id: 2,
         title: "Title 2",
@@ -55,8 +41,8 @@ describe('OrderByPipe', () => {
         description: "BLALBLALBgsdgfdgdfhfghA",
         topRated: true,
       },
-    ];
-
-    expect(pipe.transform(courses)).toEqual(sorted);
+    ]
+    expect(pipe.transform(courses, input)).toEqual(expectedList);
   })
+
 });

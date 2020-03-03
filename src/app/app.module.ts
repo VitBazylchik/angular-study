@@ -20,6 +20,7 @@ import { CourseComponent } from './components/course/course.component';
 import { FreshCourseDirective } from './directives//fresh-course/fresh-course.directive';
 import { DurationPipe } from './pipes/duration/duration.pipe';
 import { OrderByPipe } from './pipes/order-by/order-by.pipe';
+import { FindPipe } from './pipes/find/find.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { OrderByPipe } from './pipes/order-by/order-by.pipe';
     CourseComponent,
     FreshCourseDirective,
     DurationPipe,
-    OrderByPipe
+    OrderByPipe,
+    FindPipe
   ],
   imports: [
     BrowserModule,

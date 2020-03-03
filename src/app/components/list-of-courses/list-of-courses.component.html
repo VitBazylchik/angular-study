@@ -1,7 +1,7 @@
 <!-- When we are using services to get courses ngIf directives will change. -->
 <div class="section">
   <div class="container">
-    <app-search></app-search>
+    <app-search (search)="findCourses($event)"></app-search>
     <div class="add-button-wrapper">
       <button mat-raised-button class="add-button">+ Add course</button>
     </div>

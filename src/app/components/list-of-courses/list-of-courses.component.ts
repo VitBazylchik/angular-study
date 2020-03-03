@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 import { Course } from 'src/app/models/course';
+import { FindPipe } from 'src/app/pipes/find/find.pipe';
 
 @Component({
   selector: 'app-list-of-courses',
@@ -20,13 +21,13 @@ export class ListOfCoursesComponent implements OnInit {
       id: 2,
       title: "Title 2",
       creationDate: Date.now() - 10**11,
-      duration: 120,
+      duration: 122,
       description: "BLALBLALBgsdgfdgdfhfghA",
       topRated: true,
     },
     {
       id: 3,
-      title: "Title 3",
+      title: "ETitle 3",
       creationDate: Date.now() - 10**10,
       duration: 96,
       description: "BLALBLALBgsdgfdgdfhfghA",
@@ -36,10 +37,16 @@ export class ListOfCoursesComponent implements OnInit {
 
   constructor() { }
 
+  private findPipe = new FindPipe();
+
   ngOnInit(): void {
   }
 
+  findCourses(searchText: string) {
+    this.courses = this.findPipe.transform(this.courses, searchText);
+  }
+
   deleteCourse(id: number): void {
-    this.courses = this.courses.filter((course) => course.id !== id);
+    this.courses = this.courses.filter((course: Course) => course.id !== id);
   }
 }

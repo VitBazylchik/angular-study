@@ -1,8 +1,9 @@
 import { DurationPipe } from './duration.pipe';
 
 describe('DurationPipe', () => {
-  it('create an instance', () => {
-    const pipe = new DurationPipe();
-    expect(pipe).toBeTruthy();
-  });
+  const pipe = new DurationPipe();
+
+  it('should return a right string of time duration', () => {
+    expect(pipe.transform(61)).toEqual('1h 01min');
+  })
 });
