@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { CoursesModule } from './modules/courses/courses.module';
+import { LoginPageModule } from './modules/login-page/login-page.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { CoursesModule } from './modules/courses/courses.module';
     BrowserModule,
     SharedModule,
     CoursesModule,
+    LoginPageModule,
   ],
   exports: [SharedModule],
   providers: [],

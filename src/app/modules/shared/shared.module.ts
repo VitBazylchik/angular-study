@@ -15,7 +15,6 @@ import { LogoComponent } from './components/logo/logo.component';
 import { LogButtonComponent } from './components/log-button/log-button.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { BreadcrumpsComponent } from './components/breadcrumps/breadcrumps.component';
 
 const NgModules = [
   CommonModule,
@@ -37,7 +36,6 @@ const declarations = [
   LogButtonComponent,
   HeaderComponent,
   FooterComponent,
-  BreadcrumpsComponent,
 ]
 
 @NgModule({
