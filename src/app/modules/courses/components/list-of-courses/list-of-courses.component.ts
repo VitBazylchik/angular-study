@@ -1,6 +1,6 @@
-import { Component, OnInit, Pipe } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Course } from 'src/app/models/course';
-import { FindPipe } from 'src/app/pipes/find/find.pipe';
+import { FindPipe } from 'src/app/modules/shared/pipes/find/find.pipe';
 
 @Component({
   selector: 'app-list-of-courses',

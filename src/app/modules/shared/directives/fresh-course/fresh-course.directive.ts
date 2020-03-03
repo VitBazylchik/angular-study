@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
-import { Course } from '../../models/course';
+import { Course } from 'src/app/models/course';
 
 @Directive({
   selector: '[appFreshCourse]'
