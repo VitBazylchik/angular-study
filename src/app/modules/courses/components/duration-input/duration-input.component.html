@@ -1,5 +1,10 @@
 <mat-form-field class="form-input" appearance="outline">
   <mat-label>Duration:</mat-label>
-  <input matInput placeholder="Duration" name="duration" required [(ngModel)]="value">
+  <input matInput 
+    placeholder="Duration" 
+    name="duration" 
+    required 
+    [(ngModel)]="value"
+    (input)='onChange()'>
   <mat-hint>{{ value | duration }}</mat-hint>
 </mat-form-field>

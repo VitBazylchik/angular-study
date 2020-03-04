@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -9,13 +9,15 @@ import { formatDate } from '@angular/common';
 export class DateInputComponent implements OnInit {
 
   constructor() { }
-  public value: string | number = Date.now();
+  public value: string = `${Date.now()}`;
+  @Output() public change: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit(): void {
-    this.value = formatDate(this.value, 'dd.MM.yyyy', 'en-US');
+    this.value = formatDate(this.value, 'MM.dd.yyyy', 'en-US');
+    this.onChange();
   }
 
-  public onInput(event) {
-    this.value = event.target.value;
+  onChange() {
+    this.change.emit(this.value);
   }
 }
