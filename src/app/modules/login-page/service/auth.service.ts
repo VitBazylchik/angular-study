@@ -6,7 +6,7 @@ import { User } from 'src/app/models/user';
 })
 export class AuthService {
   constructor() { }
-  public isAuthenticated = false;
+  public isAuthenticated = true;
   public fakeUserInfo: User = {
     id: 1,
     firstName: 'Vitalia',

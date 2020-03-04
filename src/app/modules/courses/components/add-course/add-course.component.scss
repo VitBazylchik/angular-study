@@ -1,0 +1,27 @@
+@import "../../../../../assets/variables.scss";
+
+.course {
+  background-color: $mainBg;
+  padding: 50px 0;
+
+  &-form {
+    display: flex;
+    // flex-flow: column;
+    flex-wrap: wrap;
+  }
+}
+
+.textarea {
+  min-height: 150px;
+}
+
+.colored {
+  background-color: $btnBg;
+  color: $btnText;
+  margin-right: 20px;
+}
+
+.long {
+  flex-basis: 100%;
+  margin-bottom: 10px;
+}
