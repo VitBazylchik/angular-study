@@ -9,12 +9,10 @@ import { formatDate } from '@angular/common';
 export class DateInputComponent implements OnInit {
 
   constructor() { }
-  public value: string = `${Date.now()}`;
+  public value: string = formatDate(Date.now(), 'MM.dd.yyyy', 'en-US') ;
   @Output() public change: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit(): void {
-    this.value = formatDate(this.value, 'MM.dd.yyyy', 'en-US');
-    this.onChange();
   }
 
   onChange() {
