@@ -4,7 +4,7 @@
       <mat-card-title>
         <app-logo></app-logo>
       </mat-card-title>
-      <mat-card-actions>
+      <mat-card-actions *ngIf="authService.isAuthenticated">
         <app-log-button [btnText]='"User login"'></app-log-button>
         <app-log-button [btnText]='"Log out"'></app-log-button>
       </mat-card-actions>
@@ -12,7 +12,7 @@
   </div>
 </header>
 <div class="container">
-  <mat-card-content>
+  <mat-card-content *ngIf="authService.isAuthenticated">
     <p class="text">Courses</p>
   </mat-card-content>
 </div>

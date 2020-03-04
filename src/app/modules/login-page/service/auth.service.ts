@@ -4,7 +4,7 @@ import { User } from 'src/app/models/user';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginServiceService {
+export class AuthService {
   constructor() { }
   public isAuthenticated = false;
   public fakeUserInfo: User = {
@@ -19,6 +19,7 @@ export class LoginServiceService {
     localStorage.setItem('userInfo', JSON.stringify(this.fakeUserInfo));
     localStorage.setItem('token', fakeToken);
     this.isAuthenticated = true;
+    console.log(this.isAuthenticated);
   }
 
   public logout() {
