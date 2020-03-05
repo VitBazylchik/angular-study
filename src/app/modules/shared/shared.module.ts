@@ -11,7 +11,6 @@ import { FindPipe } from './pipes/find/find.pipe';
 import { OrderByPipe } from './pipes/order-by/order-by.pipe';
 import { FreshCourseDirective } from './directives/fresh-course/fresh-course.directive';
 import { LogoComponent } from './components/logo/logo.component';
-import { LogButtonComponent } from './components/log-button/log-button.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MissingPageComponent } from './components/missing-page/missing-page.component';
@@ -19,13 +18,11 @@ import { RouterModule } from '@angular/router';
 
 const NgModules = [
   CommonModule,
-  BrowserAnimationsModule,
   FormsModule,
   MatCardModule,
   MatIconModule,
   MatButtonModule,
   MatInputModule,
-  RouterModule,
 ];
 
 const declarations = [
@@ -34,14 +31,16 @@ const declarations = [
   OrderByPipe,
   FreshCourseDirective,
   LogoComponent,
-  LogButtonComponent,
   HeaderComponent,
   FooterComponent,
   MissingPageComponent,
 ]
 
 @NgModule({
-  imports: [...NgModules],
+  imports: [
+    ...NgModules,
+    RouterModule
+  ],
   declarations: [
     ...declarations,
   ],

@@ -1,6 +1,4 @@
-# !!! I haven't implemented routing yet, so to see another components uncomment them in app.component template file. I'm going to add routing in the 7th task (after studying it).
-
-## FirstProject
+# FirstProject
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
 

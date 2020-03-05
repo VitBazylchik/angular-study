@@ -19,7 +19,10 @@ import { routing } from './courses.routing';
     DurationInputComponent,
     AuthorsInputComponent,
   ],
-  imports: [SharedModule, routing],
+  imports: [
+    SharedModule,
+    routing
+  ],
   exports: [],
 })
 export class CoursesModule { }

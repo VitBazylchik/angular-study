@@ -1,30 +1,44 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/models/user';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor() { }
-  public isAuthenticated = true;
+  constructor(private router: Router) { }
+  public isAuthenticated = false;
   public fakeUserInfo: User = {
     id: 1,
     firstName: 'Vitalia',
     lastName: 'Bazylchyk',
-  }
-  
-  public login() {
-    const fakeToken = 'sdgsdhgdfhdh';
+  };
+  public currentUser: string;
+  public fakeToken = 'sdgsdhgdfhdh';
 
-    localStorage.setItem('userInfo', JSON.stringify(this.fakeUserInfo));
-    localStorage.setItem('token', fakeToken);
+  private getName(): void {
+    this.currentUser = `${this.fakeUserInfo.firstName} ${this.fakeUserInfo.lastName}`;
+  }
+
+  public login(): void {
+    localStorage.setItem('token', this.fakeToken);
+    this.getName();
     this.isAuthenticated = true;
-    console.log(this.isAuthenticated);
+    this.router.navigateByUrl('');
   }
 
-  public logout() {
+  public checkUser(): void {
+    if (localStorage.getItem('token')) {
+      this.getName();
+      this.isAuthenticated = true;
+    }
+  }
+
+  public logout(): void {
     localStorage.clear();
     this.isAuthenticated = false;
+    this.currentUser = null;
+    this.router.navigateByUrl('login');
   }
 
   public getUserInfo(): User {

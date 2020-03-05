@@ -5,8 +5,8 @@
         <app-logo></app-logo>
       </mat-card-title>
       <mat-card-actions *ngIf="authService.isAuthenticated">
-        <app-log-button [btnText]='"User login"'></app-log-button>
-        <app-log-button [btnText]='"Log out"'></app-log-button>
+        <button mat-button class="log-button">{{authService.currentUser}}</button>
+        <button mat-button class="log-button" (click)="logOut()">Log out</button>
       </mat-card-actions>
     </mat-card-header>
   </div>

@@ -18,7 +18,7 @@ export class DateInputComponent implements OnInit {
     this.value = formatDate(valueToFormat, 'MM.dd.yyyy', 'en-US');
   }
 
-  onChange() {
+  onChange(): void {
     this.change.emit(this.value);
   }
 }

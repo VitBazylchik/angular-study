@@ -16,11 +16,11 @@ export class CourseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onDelete() {
+  onDelete(): void {
     this.delete.emit(this.course.id);
   }
 
-  onEdit() {
+  onEdit(): void {
     this.router.navigate(['/courses/edit', this.course.id]);
   }
 }

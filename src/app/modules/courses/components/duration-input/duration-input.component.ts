@@ -16,7 +16,7 @@ export class DurationInputComponent implements OnInit {
     this.value = this.valueToEdit || '';
   }
 
-  onChange() {
+  onChange(): void {
     this.change.emit(this.value);
   }
 }

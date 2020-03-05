@@ -15,7 +15,7 @@ export class AddCourseComponent implements OnInit {
     private router: Router,
     private coursesService: CoursesService
   ) {}
-  
+
   public isEditCourse = this.activeRoute.snapshot.data.edit;
   public title = '';
   public description = '';
@@ -26,7 +26,7 @@ export class AddCourseComponent implements OnInit {
   public currentCourse: Course;
 
   ngOnInit(): void {
-    if(this.isEditCourse) {
+    if (this.isEditCourse) {
       this.id = +this.activeRoute.snapshot.params.id;
       this.currentCourse = this.coursesService.getItemById(this.id);
       this.title = this.currentCourse.title;
@@ -37,15 +37,21 @@ export class AddCourseComponent implements OnInit {
     }
   }
   public changeDate(value: string): void {
-    if(typeof value === 'string') this.date = value;
+    if (typeof value === 'string') {
+      this.date = value;
+    }
   }
   public changeAuthors(value: string): void {
-    if(typeof value === 'string') this.authors = value;
+    if (typeof value === 'string') {
+      this.authors = value;
+    }
   }
   public changeDuration(value: string): void {
-    if(typeof value === 'string') this.duration = value;
+    if (typeof value === 'string') {
+      this.duration = value;
+    }
   }
-  public onSave() {
+  public onSave(): void {
     const creationDate = +new Date(this.date);
     const duration = +this.duration;
     this.id
@@ -53,8 +59,8 @@ export class AddCourseComponent implements OnInit {
       : this.coursesService.createItem(this.title, this.description, creationDate, duration);
     this.router.navigate(['..']);
   }
-  public onCancel() {
-    if(confirm('Do you want to cancel editing?')) {
+  public onCancel(): void {
+    if (confirm('Do you want to cancel editing?')) {
       this.router.navigate(['..']);
     }
   }
