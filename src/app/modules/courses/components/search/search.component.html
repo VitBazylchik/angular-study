@@ -1,0 +1,8 @@
+<form class="example-form" (submit)="onSubmit($event)">
+  <mat-form-field class="search-input">
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Text to search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" >
+    
+  </mat-form-field>
+  <button mat-raised-button class="search-button" (click)="onClick(searchText)">Search</button>
+</form>

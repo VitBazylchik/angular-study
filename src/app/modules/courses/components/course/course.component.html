@@ -1,0 +1,35 @@
+<article class="course" [appFreshCourse]="course" [ngClass]="{top: course.topRated}">
+  <div class="row align-items-center">
+    <div class="col-9">
+      <div class="flex-around">
+        <mat-card-title>
+          {{ course.title | uppercase }}
+          <mat-icon *ngIf="course.topRated">star</mat-icon>
+        </mat-card-title>
+        <div class="information-container">
+          <mat-card-subtitle class="information">
+            <mat-icon class="info-icon">access_time</mat-icon>
+            Duration: {{ course.duration | duration }}
+          </mat-card-subtitle>
+          <mat-card-subtitle class="information">
+            <mat-icon class="info-icon">calendar_today</mat-icon>
+            Date: {{ course.creationDate | date: 'dd MMM yyyy' }} 
+          </mat-card-subtitle>
+        </div>
+      </div>
+      <p class="course-text">
+        {{ course.description }}
+      </p>
+    </div>
+    <div class="col-3">
+      <button mat-raised-button class="api-btn" (click)="onEdit()">
+        <mat-icon class="btn-icon">edit</mat-icon>
+        Edit
+      </button>
+      <button mat-raised-button class="api-btn delete-btn" (click)="onDelete()">
+        <mat-icon class="btn-icon">delete</mat-icon>
+        Delete
+      </button>
+    </div>
+  </div>
+</article>

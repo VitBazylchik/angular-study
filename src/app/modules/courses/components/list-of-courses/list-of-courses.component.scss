@@ -1,0 +1,27 @@
+@import "../../../../../assets/variables.scss";
+
+.more-button {
+  width: 100%;
+}
+
+.no-data {
+  text-align: center;
+  padding: 10px 0;
+  border: 3px solid black;
+}
+
+.add-button {
+  background-color: $btnBg;
+  color: $btnText;
+}
+
+.section {
+  background-color: $mainBg;
+  padding: 40px 0;
+}
+
+.add-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}

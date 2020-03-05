@@ -1,0 +1,22 @@
+<section class="course">
+  <div class="container">
+    <form class="course-form">
+      <h2 class="form-header">{{isEditCourse ? 'Edit' : 'Add new'}} course</h2>
+      <mat-form-field class="form-input long" appearance="outline">
+        <mat-label>Title:</mat-label>
+        <input matInput placeholder="Title" name="title" required [(ngModel)]="title">
+      </mat-form-field>
+      <mat-form-field class="form-textarea long" appearance="outline">
+        <mat-label>Description:</mat-label>
+        <textarea matInput placeholder="Description" name="description" class="textarea" required [(ngModel)]="description"></textarea>
+      </mat-form-field>
+      <app-date-input class="long" (change)='changeDate($event)' [valueToEdit]="date"></app-date-input>
+      <app-duration-input class="long" (change)='changeDuration($event)' [valueToEdit]="duration"></app-duration-input>
+      <app-authors-input class="long" (change)='changeAuthors($event)' [valueToEdit]="authors"></app-authors-input>
+      <div class="form-control">
+        <button mat-raised-button class="colored" (click)="onSave()" type="submit">Save</button>
+        <button mat-raised-button (click)="onCancel()" type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+</section>

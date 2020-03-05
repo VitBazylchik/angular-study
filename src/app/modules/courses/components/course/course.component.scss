@@ -1,0 +1,42 @@
+@import "../../../../../assets/variables.scss";
+
+.course {
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 30px 20px;
+}
+
+.info-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+}
+
+.information-container {
+  display: flex;
+}
+
+.information {
+  display: flex;
+  margin-right: 30px;
+}
+
+.api-btn {
+  min-width: 110px;
+  margin-left: 10px;
+  background-color: $btnBg;
+  color: $btnText;
+}
+
+.course-text {
+  margin-top: 30px;
+}
+
+.course {
+  border: 3px solid #000;
+}
+
+.top {
+  background-color: rgba(254, 255, 210, 0.4);
+}
