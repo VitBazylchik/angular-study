@@ -19,7 +19,6 @@ export class LoginPageComponent implements OnInit {
 
   public onLogin(): void {
     this.authService.login();
-    console.log('Log in successfully')
   }
 
 }

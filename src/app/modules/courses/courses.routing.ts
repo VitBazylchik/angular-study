@@ -7,6 +7,6 @@ const routes: Routes = [
   {path: 'new', component: AddCourseComponent, canActivate: [AuthGuard], data: {edit: false}},
   {path: 'edit/:id', component: AddCourseComponent, canActivate: [AuthGuard], data: {edit: true}},
   {path: 'courses', canActivate: [AuthGuard], component: ListOfCoursesComponent},
-]
+];
 
 export const routing = RouterModule.forChild(routes);

@@ -17,7 +17,7 @@ export class ListOfCoursesComponent implements OnInit {
     this.courses = this.coursesService.getList();
   }
 
-  findCourses(searchText: string) {
+  findCourses(searchText: string): void {
     this.courses = this.findPipe.transform(this.courses, searchText);
   }
 

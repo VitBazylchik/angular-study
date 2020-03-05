@@ -10,12 +10,13 @@ export class FreshCourseDirective implements OnChanges {
 
   private currentDate = new Date();
   private numericCurrentDate = +this.currentDate;
-  private dateToCompare = this.currentDate.setDate(this.currentDate.getDate() - 14);
+  private twoWeeks = 14;
+  private dateToCompare = this.currentDate.setDate(this.currentDate.getDate() - this.twoWeeks);
 
   constructor(private el: ElementRef) { }
 
-  ngOnChanges() {
-    if(this.course.creationDate < this.numericCurrentDate && this.course.creationDate >= this.dateToCompare) {
+  ngOnChanges(): void {
+    if (this.course.creationDate < this.numericCurrentDate && this.course.creationDate >= this.dateToCompare) {
       this.el.nativeElement.style.borderColor = 'green';
     } else if (this.course.creationDate > this.numericCurrentDate) {
       this.el.nativeElement.style.borderColor = 'blue';

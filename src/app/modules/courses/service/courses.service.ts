@@ -41,9 +41,9 @@ export class CoursesService {
   }
 
   public createItem(
-      title: string, 
-      description: string, 
-      creationDate: number, 
+      title: string,
+      description: string,
+      creationDate: number,
       duration: number
     ): Course[] {
     this.maxId += 1;
@@ -62,10 +62,10 @@ export class CoursesService {
 
   public getItemById(id: number): Course {
     return this.courses.find((course: Course) => course.id === id);
-  } 
+  }
 
   public updateItem(
-      id: number, 
+      id: number,
       title: string,
       description: string,
       creationDate: number,

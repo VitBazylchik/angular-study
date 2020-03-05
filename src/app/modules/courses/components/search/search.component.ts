@@ -14,7 +14,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(event: Event) {
+  onSubmit(event: Event): void {
     event.preventDefault();
   }
 

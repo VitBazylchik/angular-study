@@ -11,7 +11,7 @@ import { Course } from 'src/app/models/course';
 export class AddCourseComponent implements OnInit {
 
   constructor(
-    private activeRoute: ActivatedRoute, 
+    private activeRoute: ActivatedRoute,
     private router: Router,
     private coursesService: CoursesService
   ) {}

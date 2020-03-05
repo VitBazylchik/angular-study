@@ -34,7 +34,7 @@ const declarations = [
   HeaderComponent,
   FooterComponent,
   MissingPageComponent,
-]
+];
 
 @NgModule({
   imports: [
