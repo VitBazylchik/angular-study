@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { CoursesModule } from './modules/courses/courses.module';
 import { LoginPageModule } from './modules/login-page/login-page.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { LoginPageModule } from './modules/login-page/login-page.module';
     SharedModule,
     CoursesModule,
     LoginPageModule,
+    AppRoutingModule,
   ],
   exports: [SharedModule],
   providers: [],

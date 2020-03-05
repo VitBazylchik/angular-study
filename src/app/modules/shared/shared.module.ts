@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppRoutingModule } from 'src/app/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,10 +14,10 @@ import { LogoComponent } from './components/logo/logo.component';
 import { LogButtonComponent } from './components/log-button/log-button.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { MissingPageComponent } from './components/missing-page/missing-page.component';
 
 const NgModules = [
   CommonModule,
-  AppRoutingModule,
   BrowserAnimationsModule,
   FormsModule,
   MatCardModule,
@@ -36,12 +35,13 @@ const declarations = [
   LogButtonComponent,
   HeaderComponent,
   FooterComponent,
+  MissingPageComponent,
 ]
 
 @NgModule({
   imports: [...NgModules],
   declarations: [
-    ...declarations
+    ...declarations,
   ],
   exports: [
     ...NgModules,

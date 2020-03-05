@@ -7,6 +7,7 @@ import { AddCourseComponent } from './components/add-course/add-course.component
 import { DateInputComponent } from './components/date-input/date-input.component';
 import { DurationInputComponent } from './components/duration-input/duration-input.component';
 import { AuthorsInputComponent } from './components/authors-input/authors-input.component';
+import { routing } from './courses.routing';
 
 @NgModule({
   declarations: [
@@ -18,10 +19,7 @@ import { AuthorsInputComponent } from './components/authors-input/authors-input.
     DurationInputComponent,
     AuthorsInputComponent,
   ],
-  imports: [SharedModule],
-  exports: [
-    ListOfCoursesComponent,
-    AddCourseComponent,
-  ],
+  imports: [SharedModule, routing],
+  exports: [],
 })
 export class CoursesModule { }

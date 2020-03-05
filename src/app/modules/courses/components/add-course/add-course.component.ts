@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CoursesService } from '../../service/courses.service';
 
 @Component({
   selector: 'app-add-course',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCourseComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private activeRoute: ActivatedRoute, 
+    private router: Router,
+    private coursesService: CoursesService) { 
+      console.log(this.activeRoute.data.subscribe(data => console.log(data)));
+    }
   public title: string;
   public description: string;
   public date: string;
@@ -25,6 +32,12 @@ export class AddCourseComponent implements OnInit {
   public changeDuration(value: string): void {
     this.duration = value;
   }
-  public onSave() {}
-  public onCancel() {}
+  public onSave() {
+
+  }
+  public onCancel() {
+    if(confirm('Do you want to cancel editing?')) {
+      this.router.navigate(['..']);
+    }
+  }
 }
