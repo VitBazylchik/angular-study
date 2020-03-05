@@ -5,14 +5,15 @@ import { Course } from 'src/app/models/course';
   providedIn: 'root'
 })
 export class CoursesService {
-  courses: Course[] = [
+  public courses: Course[] = [
     {
       id: 1,
       title: "Title 1",
-      creationDate: Date.now() - 100,
+      creationDate: Date.now() - 10**8,
       duration: 59,
       description: "BLALBLALBA",
       topRated: false,
+      authors: 'Kek Cheburek'
     },
     {
       id: 2,
@@ -30,7 +31,8 @@ export class CoursesService {
       description: "BLALBLALBgsdgfdgdfhfghA",
       topRated: false,
     }
-  ]
+  ];
+  public maxId = 3;
 
   constructor() { }
 
@@ -38,13 +40,16 @@ export class CoursesService {
     return this.courses;
   }
 
-  public createItem(title: string, duration: number, description: string): Course[] {
-    const coursesArrLength = this.courses.length;
-    const nextId = this.courses[coursesArrLength - 1].id + 1;
-    const creationDate = Date.now();
+  public createItem(
+      title: string, 
+      description: string, 
+      creationDate: number, 
+      duration: number
+    ): Course[] {
+    this.maxId += 1;
     const topRated = false;
     const item = {
-      id: nextId,
+      id: this.maxId,
       title,
       creationDate,
       duration,
@@ -59,10 +64,18 @@ export class CoursesService {
     return this.courses.find((course: Course) => course.id === id);
   } 
 
-  public updateItem(id: number, newTitle: string, newDescription: string): Course[] {
+  public updateItem(
+      id: number, 
+      title: string,
+      description: string,
+      creationDate: number,
+      duration: number
+    ): Course[] {
     const currentItem = this.getItemById(id);
-    currentItem.title = newTitle;
-    currentItem.description = newDescription;
+    currentItem.title = title;
+    currentItem.description = description;
+    currentItem.creationDate = creationDate;
+    currentItem.duration = duration;
     return this.courses;
   }
 

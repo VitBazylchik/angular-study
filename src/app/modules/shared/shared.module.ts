@@ -15,6 +15,7 @@ import { LogButtonComponent } from './components/log-button/log-button.component
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MissingPageComponent } from './components/missing-page/missing-page.component';
+import { RouterModule } from '@angular/router';
 
 const NgModules = [
   CommonModule,
@@ -24,6 +25,7 @@ const NgModules = [
   MatIconModule,
   MatButtonModule,
   MatInputModule,
+  RouterModule,
 ];
 
 const declarations = [

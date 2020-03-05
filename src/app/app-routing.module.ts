@@ -4,9 +4,9 @@ import { LoginPageComponent } from './modules/login-page/components/login-page/l
 import { MissingPageComponent } from './modules/shared/components/missing-page/missing-page.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'courses', pathMatch: 'full'},
   {path: 'courses', loadChildren: './modules/courses/courses.module#CoursesModule'},
   {path: 'login', component: LoginPageComponent},
+  {path: '', redirectTo: 'courses', pathMatch: 'full'},
   {path: '**', component: MissingPageComponent},
 ];
 
