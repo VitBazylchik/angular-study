@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 
 @Component({
@@ -7,18 +7,22 @@ import { AuthService } from '../../service/auth.service';
   styleUrls: ['./login-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent {
 
   constructor(private authService: AuthService) { }
 
   public email: string;
   public password: string;
-
-  ngOnInit(): void {
-  }
-
   public onLogin(): void {
     this.authService.login();
+  }
+
+  public emailChange(value: string): void {
+    this.email = value;
+  }
+
+  public passwordChange(value: string): void {
+    this.password = value;
   }
 
 }

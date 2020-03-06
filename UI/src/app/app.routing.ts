@@ -3,13 +3,13 @@ import { LoginPageComponent } from './modules/login-page/components/login-page/l
 import { MissingPageComponent } from './modules/shared/components/missing-page/missing-page.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'courses', pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent},
   {
     path: 'courses',
     loadChildren: () => import('./modules/courses/courses.module')
     .then((m) => m.CoursesModule)
   },
-  {path: '', redirectTo: 'courses', pathMatch: 'full'},
   {path: '**', component: MissingPageComponent},
 ];
 

@@ -6,6 +6,7 @@ import { CoursesModule } from './modules/courses/courses.module';
 import { LoginPageModule } from './modules/login-page/login-page.module';
 import { AppRouting } from './app.routing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,13 +15,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     SharedModule,
+    HttpClientModule,
     CoursesModule,
     LoginPageModule,
     AppRouting,
     BrowserAnimationsModule,
   ],
-  exports: [],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

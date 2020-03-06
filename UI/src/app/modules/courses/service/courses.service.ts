@@ -1,62 +1,45 @@
 import { Injectable } from '@angular/core';
-import { Course } from 'src/app/models/course';
+import { HttpClient } from '@angular/common/http';
+import { Course } from '../../shared/models/course';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
-  public courses: Course[] = [
-    {
-      id: 1,
-      title: "Title 1",
-      creationDate: Date.now() - 10**8,
-      duration: 59,
-      description: "BLALBLALBA",
-      topRated: false,
-      authors: 'Kek Cheburek'
-    },
-    {
-      id: 2,
-      title: "Title 2",
-      creationDate: Date.now() - 10**11,
-      duration: 122,
-      description: "BLALBLALBgsdgfdgdfhfghA",
-      topRated: true,
-    },
-    {
-      id: 3,
-      title: "ETitle 3",
-      creationDate: Date.now() - 10**10,
-      duration: 96,
-      description: "BLALBLALBgsdgfdgdfhfghA",
-      topRated: false,
-    }
-  ];
-  public maxId = 3;
+  public courses: Course[];
+  public maxId: number;
+  private BASE_URL = 'http://localhost:3004';
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+    this.http.get(`${this.BASE_URL}/courses`).subscribe((data: Course[]) => {
+      this.courses = data;
+      this.maxId = this.courses.reduce((acc: number, course: Course): number => {
+        return Math.max(acc, course.id);
+      }, 0);
+    });
+  }
 
   public getList(): Course[] {
     return this.courses;
   }
 
   public createItem(
-      title: string,
+      name: string,
       description: string,
-      creationDate: number,
+      date: string,
       duration: number
     ): Course[] {
-    this.maxId += 1;
-    const topRated = false;
+    // this.maxId += 1;
+    const isTopRated = false;
     const item = {
-      id: this.maxId,
-      title,
-      creationDate,
+      // id: this.maxId,
+      name,
+      date,
       duration,
       description,
-      topRated,
-    }
-    this.courses.push(item);
+      isTopRated,
+    };
+    // this.courses.push(item);
     return this.courses;
   }
 
@@ -66,15 +49,15 @@ export class CoursesService {
 
   public updateItem(
       id: number,
-      title: string,
+      name: string,
       description: string,
-      creationDate: number,
+      date: string,
       duration: number
     ): Course[] {
     const currentItem = this.getItemById(id);
-    currentItem.title = title;
+    currentItem.name = name;
     currentItem.description = description;
-    currentItem.creationDate = creationDate;
+    currentItem.date = date;
     currentItem.duration = duration;
     return this.courses;
   }

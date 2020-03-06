@@ -1,0 +1,12 @@
+<div class="column">
+  <label [for]="name" class="input-label">{{labelText}}</label>
+  <input 
+    [type]="type"
+    (input)="onChange()"
+    [(ngModel)]="value"
+    [name]="name"
+    class="input"
+    [placeholder]="placeholder"
+    [required]="required" >
+</div>
+

@@ -3,21 +3,32 @@
     <div class="row justify-content-center">
       <form class="login-form">
         <h2 class="form-header">Login</h2>
-        <mat-form-field class="form-input" appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput placeholder="Ex. pat@example.com" name="email" required [(ngModel)]="email">
-          <mat-hint>*required</mat-hint>
-        </mat-form-field>
-        <mat-form-field class="form-input" appearance="outline">
-          <mat-label>Password</mat-label>
-          <input matInput placeholder="Password" type="password" name="password" required [(ngModel)]="password">
-          <mat-hint>*required</mat-hint>
-        </mat-form-field>
+          <app-text-input
+            class="form-input"
+            type="text"
+            required="true" 
+            name="email"
+            labelText="Email:"
+            (inputChange)="emailChange($event)"
+          ></app-text-input>
+          <app-text-input 
+            class="form-input"
+            type="password"
+            required="true" 
+            name="password"
+            labelText="Password:"
+            (inputChange)="passwordChange($event)"
+          ></app-text-input>
         <div class="form-control flex-around">
-          <a>
-            <mat-hint>Forgot your password?</mat-hint>
+          <a routerLink="/fff">
+            <p>Forgot your password?</p>
           </a>
-          <button mat-raised-button (click)="onLogin()" [disabled]="!email || !password">Login</button>
+          <app-button 
+            (btnClick)="onLogin()"
+            [disabled]="!email || !password"
+            text="Login"
+            type="submit"
+          ></app-button>
         </div>
       </form>
     </div>

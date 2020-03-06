@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { Course } from 'src/app/models/course';
 import { Router } from '@angular/router';
+import { Course } from 'src/app/modules/shared/models/course';
 
 @Component({
   selector: 'app-course',

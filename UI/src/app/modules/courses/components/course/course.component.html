@@ -1,19 +1,19 @@
-<article class="course" [appFreshCourse]="course" [ngClass]="{top: course.topRated}">
+<article class="course" [appFreshCourse]="course" [ngClass]="{top: course.isTopRated}">
   <div class="row align-items-center">
     <div class="col-9">
       <div class="flex-around">
         <mat-card-title>
-          {{ course.title | uppercase }}
-          <mat-icon *ngIf="course.topRated">star</mat-icon>
+          {{ course.name | uppercase }}
+          <mat-icon *ngIf="course.isTopRated">star</mat-icon>
         </mat-card-title>
         <div class="information-container">
-          <mat-card-subtitle class="information">
+          <mat-card-subtitle class="information" *ngIf="course.duration">
             <mat-icon class="info-icon">access_time</mat-icon>
             Duration: {{ course.duration | duration }}
           </mat-card-subtitle>
           <mat-card-subtitle class="information">
             <mat-icon class="info-icon">calendar_today</mat-icon>
-            Date: {{ course.creationDate | date: 'dd MMM yyyy' }} 
+            Date: {{ course.date | date: 'dd MMM yyyy' }} 
           </mat-card-subtitle>
         </div>
       </div>

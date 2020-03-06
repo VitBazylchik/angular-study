@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +14,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MissingPageComponent } from './components/missing-page/missing-page.component';
 import { RouterModule } from '@angular/router';
+import { TextInputComponent } from './components/text-input/text-input.component';
+import { ButtonComponent } from './components/button/button.component';
 
 const NgModules = [
   CommonModule,
@@ -34,6 +35,8 @@ const declarations = [
   HeaderComponent,
   FooterComponent,
   MissingPageComponent,
+  TextInputComponent,
+  ButtonComponent,
 ];
 
 @NgModule({

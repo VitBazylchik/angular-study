@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../../service/courses.service';
-import { Course } from 'src/app/models/course';
+import { Author } from 'src/app/modules/shared/models/author';
+import { Course } from 'src/app/modules/shared/models/course';
 
 @Component({
   selector: 'app-add-course',
@@ -19,9 +20,9 @@ export class AddCourseComponent implements OnInit {
   public isEditCourse = this.activeRoute.snapshot.data.edit;
   public title = '';
   public description = '';
-  public date: string | number = '';
+  public date = '';
   public duration: string | number = '';
-  public authors = '';
+  public authors: Author[];
   public id: number;
   public currentCourse: Course;
 
@@ -29,9 +30,9 @@ export class AddCourseComponent implements OnInit {
     if (this.isEditCourse) {
       this.id = +this.activeRoute.snapshot.params.id;
       this.currentCourse = this.coursesService.getItemById(this.id);
-      this.title = this.currentCourse.title;
+      this.title = this.currentCourse.name;
       this.description = this.currentCourse.description;
-      this.date = this.currentCourse.creationDate;
+      this.date = this.currentCourse.date;
       this.duration = this.currentCourse.duration;
       this.authors = this.currentCourse.authors;
     }
@@ -43,7 +44,10 @@ export class AddCourseComponent implements OnInit {
   }
   public changeAuthors(value: string): void {
     if (typeof value === 'string') {
-      this.authors = value;
+      this.authors.push({
+        name: value,
+        lastName: value,
+      });
     }
   }
   public changeDuration(value: string): void {
@@ -52,11 +56,11 @@ export class AddCourseComponent implements OnInit {
     }
   }
   public onSave(): void {
-    const creationDate = +new Date(this.date);
+    const date = new Date(this.date).toString();
     const duration = +this.duration;
     this.id
-      ? this.coursesService.updateItem(this.id, this.title, this.description, creationDate, duration)
-      : this.coursesService.createItem(this.title, this.description, creationDate, duration);
+      ? this.coursesService.updateItem(this.id, this.title, this.description, date, duration)
+      : this.coursesService.createItem(this.title, this.description, date, duration);
     this.router.navigate(['..']);
   }
   public onCancel(): void {

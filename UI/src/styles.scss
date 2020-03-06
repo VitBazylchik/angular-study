@@ -1,7 +1,12 @@
 @import '~bootstrap/dist/css/bootstrap-grid.min.css';
+@import './assets/variables.scss';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: $mainFontSize;}
+
+* {
+  box-sizing: border-box;
+}
 
 .flex-around {
   display: flex;
@@ -11,4 +16,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .long-input {
   width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
