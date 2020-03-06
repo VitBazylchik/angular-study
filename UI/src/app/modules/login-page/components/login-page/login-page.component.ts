@@ -10,19 +10,17 @@ import { AuthService } from '../../service/auth.service';
 export class LoginPageComponent {
 
   constructor(private authService: AuthService) { }
-
   public email: string;
   public password: string;
-  public onLogin(): void {
-    this.authService.login();
-  }
 
   public emailChange(value: string): void {
     this.email = value;
   }
-
   public passwordChange(value: string): void {
     this.password = value;
   }
 
+  public onLogin(): void {
+    this.authService.login(this.email, this.password);
+  }
 }

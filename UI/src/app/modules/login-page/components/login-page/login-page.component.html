@@ -10,6 +10,7 @@
             name="email"
             labelText="Email:"
             (inputChange)="emailChange($event)"
+            [long]="true"
           ></app-text-input>
           <app-text-input 
             class="form-input"
@@ -18,6 +19,7 @@
             name="password"
             labelText="Password:"
             (inputChange)="passwordChange($event)"
+            [long]="true"
           ></app-text-input>
         <div class="form-control flex-around">
           <a routerLink="/fff">

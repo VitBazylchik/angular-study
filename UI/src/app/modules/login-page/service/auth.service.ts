@@ -20,11 +20,18 @@ export class AuthService {
     this.currentUser = ``;
   }
 
-  public login(): void {
-    // localStorage.setItem('token', this.fakeToken);
-    this.getName();
-    this.isAuthenticated = true;
-    this.router.navigateByUrl('');
+  public login(login: string, password: string): void {
+    const body = {
+      login,
+      password,
+    };
+    this.http.post<{token: string}>(`${this.BASE_URL}/auth/login`, body).subscribe((data: {token: string}) => {
+      if (data) {
+        localStorage.setItem('token', data.token);
+        this.isAuthenticated = true;
+        this.router.navigateByUrl('courses');
+      }
+    });
   }
 
   public logout(): void {
@@ -34,8 +41,9 @@ export class AuthService {
     this.router.navigateByUrl('login');
   }
 
-  public getUserInfo(): Observable<User> {
+  public getUserInfo(): Observable<User | string> {
     const token = localStorage.getItem('token');
-    return this.http.post<User>(`${this.BASE_URL}/auth/userinfo`, token);
+    const body = {token};
+    return this.http.post<User>(`${this.BASE_URL}/auth/userinfo`, body);
   }
 }

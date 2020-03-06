@@ -4,7 +4,7 @@ import { AddCourseComponent } from './components/add-course/add-course.component
 import { AuthGuard } from '../login-page/guards/auth.guard';
 
 const routes: Routes = [
-  {path: 'courses', component: ListOfCoursesComponent},
+  {path: 'courses', canActivate: [AuthGuard], component: ListOfCoursesComponent},
   {path: 'new', component: AddCourseComponent, data: {edit: false}},
   {path: 'edit/:id', component: AddCourseComponent, data: {edit: true}},
 ];
