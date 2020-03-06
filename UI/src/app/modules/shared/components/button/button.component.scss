@@ -2,9 +2,9 @@
 
 .button {
   border: none;
-  color: #000;
+  color: $btnText;
   background-color: grey;
-  padding: 10px 15px;
+  padding: 10px 20px;
   font-size: $mainFontSize;
   font-weight: bold;
   border-radius: 5px;
@@ -33,5 +33,32 @@
     &:disabled {
       background-color: $btnBg;
     }
+  }
+}
+
+.icon {
+  position: relative;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+}
+
+.search {
+  color: $btnText;
+  background-color: $searchBtnBg;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: $searchBtnBgHover;
+  }
+}
+
+.clear {
+  background-color: inherit;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: rgba(0,0,0,0.1);
   }
 }

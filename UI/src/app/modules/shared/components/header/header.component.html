@@ -1,18 +1,23 @@
 <header class="header">
   <div class="container">
-    <mat-card-header class="flex-around header-dark">
-      <mat-card-title>
-        <app-logo></app-logo>
-      </mat-card-title>
-      <mat-card-actions *ngIf="authService.isAuthenticated">
-        <button mat-button class="log-button">{{authService.currentUser}}</button>
-        <button mat-button class="log-button" (click)="logOut()">Log out</button>
-      </mat-card-actions>
-    </mat-card-header>
+    <div class="flex-around header-dark">
+      <app-logo></app-logo>
+      <div *ngIf="authService.isAuthenticated">
+        <app-button 
+          [text]="authService.currentUser"
+          type="button"
+          [clear]="true"
+        ></app-button>
+        <app-button 
+          (btnClick)="logOut()"
+          text="Log out"
+          type="button"
+          [clear]="true"
+        ></app-button>
+      </div>
+    </div>
   </div>
 </header>
 <div class="container">
-  <mat-card-content *ngIf="authService.isAuthenticated">
-    <p class="text">Courses</p>
-  </mat-card-content>
+  <p class="text" *ngIf="authService.isAuthenticated">Courses</p>
 </div>

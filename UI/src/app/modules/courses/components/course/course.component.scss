@@ -20,10 +20,12 @@
 .information {
   display: flex;
   margin-right: 30px;
+  color: rgba(0,0,0,.54);
+  font-size: 14px;
 }
 
 .api-btn {
-  min-width: 110px;
+  // min-width: 110px;
   margin-left: 10px;
   background-color: $btnBg;
   color: $btnText;

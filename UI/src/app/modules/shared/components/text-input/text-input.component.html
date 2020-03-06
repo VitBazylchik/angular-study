@@ -1,12 +1,24 @@
 <div class="column">
-  <label [for]="name" class="input-label">{{labelText}}</label>
+  <p class="input-label" *ngIf="labelText" >{{labelText}}</p>
   <input 
+    *ngIf="type !== 'textarea'"
     [type]="type"
     (input)="onChange()"
     [(ngModel)]="value"
     [name]="name"
-    class="input"
+    [ngClass]="{'input': true, 'long': long}"
     [placeholder]="placeholder"
-    [required]="required" >
+    [required]="required"
+    [value]="value" >
+  <textarea
+    *ngIf="type === 'textarea'"
+    (input)="onChange()"
+    [(ngModel)]="value"
+    [name]="name"
+    [ngClass]="{'input': true, 'textarea': true, 'long': long}"
+    [placeholder]="placeholder"
+    [required]="required"
+    [value]="value"
+  ></textarea>
 </div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/modules/shared/models/course';
 
@@ -8,13 +8,10 @@ import { Course } from 'src/app/modules/shared/models/course';
   styleUrls: ['./course.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseComponent implements OnInit {
+export class CourseComponent {
   @Input() public course: Course;
   @Output() public delete: EventEmitter<number> = new EventEmitter<number>();
-  constructor(private router: Router) { }
-
-  ngOnInit(): void {
-  }
+  constructor(private router: Router) {}
 
   onDelete(): void {
     this.delete.emit(this.course.id);

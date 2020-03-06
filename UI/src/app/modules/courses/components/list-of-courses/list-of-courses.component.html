@@ -3,7 +3,12 @@
   <div class="container">
     <app-search (search)="findCourses($event)"></app-search>
     <div class="add-button-wrapper">
-      <button mat-raised-button class="add-button" [routerLink]="['/courses/new']" routerLinkActive="router-link-active" >+ Add course</button>
+      <app-button 
+        [routerLink]="['/courses/new']"
+        text="+ Add course"
+        type="button"
+        [colored]='true'
+      ></app-button>
     </div>
   
     <h2 *ngIf="!courses.length" class="no-data">

@@ -2,20 +2,69 @@
   <div class="container">
     <form class="course-form">
       <h2 class="form-header">{{isEditCourse ? 'Edit' : 'Add new'}} course</h2>
-      <mat-form-field class="form-input long" appearance="outline">
-        <mat-label>Name:</mat-label>
-        <input matInput placeholder="Title" name="title" required [(ngModel)]="title">
-      </mat-form-field>
-      <mat-form-field class="form-textarea long" appearance="outline">
-        <mat-label>Description:</mat-label>
-        <textarea matInput placeholder="Description" name="description" class="textarea" required [(ngModel)]="description"></textarea>
-      </mat-form-field>
-      <app-date-input class="long" (change)='changeDate($event)' [valueToEdit]="date"></app-date-input>
-      <app-duration-input class="long" (change)='changeDuration($event)' [valueToEdit]="duration"></app-duration-input>
-      <app-authors-input class="long" (change)='changeAuthors($event)' [valueToEdit]="authors"></app-authors-input>
+      <app-text-input
+        class="form-input long"
+        type="text"
+        required="true" 
+        name="name"
+        labelText="Name*:"
+        (inputChange)="changeName($event)"
+        [long]="true"
+        [value]="name"
+      ></app-text-input>
+      <app-text-input
+        class="form-textarea long"
+        type="textarea"
+        required="true" 
+        name="description"
+        labelText="Description*:"
+        (inputChange)="changeDescription($event)"
+        [long]="true"
+        [value]="description"
+      ></app-text-input>
+      <app-text-input
+        class="form-input long"
+        type="text"
+        required="true" 
+        name="date"
+        labelText="Date*:"
+        (inputChange)="changeDate($event)"
+        [value]="date"
+      ></app-text-input>
+      <app-text-input
+        class="form-input long"
+        type="text"
+        required="false" 
+        name="duration"
+        labelText="Duration:"
+        (inputChange)="changeDuration($event)"
+        [value]="length"
+      ></app-text-input>
+      <app-text-input
+        class="form-input long"
+        type="text"
+        required="false" 
+        name="authors"
+        labelText="Authors:"
+        (inputChange)="changeAuthors($event)"
+        [value]="authors"
+        [long]="true"
+      ></app-text-input>
+      <p class="note"><strong>*</strong> - required inputs</p>
       <div class="form-control">
-        <button mat-raised-button class="colored" (click)="onSave()" type="submit">Save</button>
-        <button mat-raised-button (click)="onCancel()" type="button">Cancel</button>
+        <app-button 
+          class="margin-btn"
+          (btnClick)="onSave()"
+          [disabled]="!name || !description || !date"
+          text="Save"
+          type="submit"
+          [colored]="true"
+        ></app-button>
+        <app-button 
+          (btnClick)="onCancel()"
+          text="Cancel"
+          type="button"
+        ></app-button>
       </div>
     </form>
   </div>

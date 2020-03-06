@@ -5,7 +5,6 @@ import { SharedModule } from './modules/shared/shared.module';
 import { CoursesModule } from './modules/courses/courses.module';
 import { LoginPageModule } from './modules/login-page/login-page.module';
 import { AppRouting } from './app.routing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { HttpClientModule } from '@angular/common/http';
     CoursesModule,
     LoginPageModule,
     AppRouting,
-    BrowserAnimationsModule,
   ],
   bootstrap: [AppComponent]
 })

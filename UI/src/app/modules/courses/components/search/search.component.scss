@@ -1,12 +1,13 @@
 @import "../../../../../assets/variables.scss";
 
-.search-button {
-  color: $btnText;
-  background-color: $searchBtnBg;
-  margin-left: 10px;
-}
+.search {
+  &-form {
+    display: flex;
+    align-items: center;
+  }
 
-.search-input {
-  min-width: 300px;
-  font-size: 18px;
+  &-input {
+    max-width: 300px;
+    font-size: 18px;
+  }
 }

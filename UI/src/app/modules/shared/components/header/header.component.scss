@@ -1,7 +1,7 @@
 @import "../../../../../assets/variables.scss";
 
 .header {
-  padding-top: 20px;
+  padding: 20px 0;
   background: $headFootBg;
 }
 
@@ -9,8 +9,4 @@
   padding: 20px 0;
   font-size: 16px;
   margin-bottom: 0;
-}
-
-.log-button {
-  color: $btnText;
 }

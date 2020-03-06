@@ -6,13 +6,8 @@
 
   &-form {
     display: flex;
-    // flex-flow: column;
     flex-wrap: wrap;
   }
-}
-
-.textarea {
-  min-height: 150px;
 }
 
 .colored {
@@ -23,5 +18,15 @@
 
 .long {
   flex-basis: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.note {
+  flex-basis: 100%;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.margin-btn {
+  margin-right: 30px;
 }

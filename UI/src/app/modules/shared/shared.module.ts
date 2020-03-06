@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { DurationPipe } from './pipes/duration/duration.pipe';
 import { FindPipe } from './pipes/find/find.pipe';
@@ -20,10 +17,7 @@ import { ButtonComponent } from './components/button/button.component';
 const NgModules = [
   CommonModule,
   FormsModule,
-  MatCardModule,
   MatIconModule,
-  MatButtonModule,
-  MatInputModule,
 ];
 
 const declarations = [

@@ -27,7 +27,7 @@ export class CoursesService {
       name: string,
       description: string,
       date: string,
-      duration: number
+      length: number
     ): Course[] {
     // this.maxId += 1;
     const isTopRated = false;
@@ -35,7 +35,7 @@ export class CoursesService {
       // id: this.maxId,
       name,
       date,
-      duration,
+      length,
       description,
       isTopRated,
     };
@@ -52,13 +52,13 @@ export class CoursesService {
       name: string,
       description: string,
       date: string,
-      duration: number
+      length: number
     ): Course[] {
     const currentItem = this.getItemById(id);
     currentItem.name = name;
     currentItem.description = description;
     currentItem.date = date;
-    currentItem.duration = duration;
+    currentItem.length = length;
     return this.courses;
   }
 

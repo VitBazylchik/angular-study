@@ -2,5 +2,8 @@
   [type]="type"
   (click)="onClick()"
   [disabled]="disabled"
-  [ngClass]="{'button': true, 'colored': colored}"
->{{text}}</button>
+  [ngClass]="{'button': true, 'colored': colored, 'search': search, 'clear': clear}"
+>
+  <mat-icon *ngIf="icon" class="icon">{{icon}}</mat-icon>
+  {{text}}
+</button>
