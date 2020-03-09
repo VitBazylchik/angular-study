@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FindPipe } from 'src/app/modules/shared/pipes/find/find.pipe';
 import { CoursesService } from '../../service/courses.service';
 import { Course } from 'src/app/modules/shared/models/course';
+import { Observable, concat } from 'rxjs';
 
 @Component({
   selector: 'app-list-of-courses',
@@ -10,19 +10,30 @@ import { Course } from 'src/app/modules/shared/models/course';
 })
 export class ListOfCoursesComponent implements OnInit {
   constructor(private coursesService: CoursesService) { }
-  public courses: Course[];
-  private findPipe = new FindPipe();
+  public courses: Observable<Course[]>;
 
   ngOnInit(): void {
     this.courses = this.coursesService.getList();
   }
 
   findCourses(searchText: string): void {
-    this.courses = this.findPipe.transform(this.courses, searchText);
+    if (!searchText) {
+      this.coursesService.textFragment = null;
+    }
+    this.courses = this.coursesService.getList(searchText);
+  }
+
+  loadMore(): void {
+    const numOfNewCourses = 3;
+    this.coursesService.count += numOfNewCourses;
+    this.courses = this.coursesService.getList();
   }
 
   deleteCourse(id: number): void {
     const confirmMsg = 'Do you really want do delete this course?';
-    this.courses = confirm(confirmMsg) ? this.coursesService.removeItem(id) : this.courses;
+    if (confirm(confirmMsg)) {
+      this.coursesService.removeItem(id);
+      this.courses = this.coursesService.getList();
+    }
   }
 }

@@ -5,6 +5,8 @@ import { SearchComponent } from './components/search/search.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddCourseComponent } from './components/add-course/add-course.component';
 import { routing } from './courses.routing';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../shared/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -18,5 +20,6 @@ import { routing } from './courses.routing';
     routing
   ],
   exports: [ListOfCoursesComponent, AddCourseComponent],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]
 })
 export class CoursesModule { }

@@ -1,50 +1,64 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Course } from '../../shared/models/course';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Author } from '../../shared/models/author';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
-  public courses: Course[];
+  public start = 0;
+  public count = 3;
   public maxId: number;
+  public textFragment: string;
   private BASE_URL = 'http://localhost:3004';
 
-  constructor(private http: HttpClient) {
-    this.http.get(`${this.BASE_URL}/courses`).subscribe((data: Course[]) => {
-      this.courses = data;
-      this.maxId = this.courses.reduce((acc: number, course: Course): number => {
-        return Math.max(acc, course.id);
-      }, 0);
-    });
-  }
+  constructor(private http: HttpClient) {}
 
-  public getList(): Course[] {
-    return this.courses;
+  public getList(searchText?: string): Observable<Course[]> {
+    this.textFragment = searchText || this.textFragment;
+    const params = this.textFragment
+    ? {
+      start: `${this.start}`,
+      count: `${this.count}`,
+      sort: 'date',
+      textFragment: this.textFragment,
+    }
+    : {
+      start: `${this.start}`,
+      count: `${this.count}`,
+      sort: 'date',
+    };
+    return this.http.get<Course[]>(`${this.BASE_URL}/courses`, { params }).pipe(tap((courses: Course[]): void => {
+      this.maxId = courses.reduce((acc: number, course: Course) => Math.max(acc, course.id), 0);
+    }));
   }
 
   public createItem(
       name: string,
       description: string,
       date: string,
+      authors: Author[],
       length: number
-    ): Course[] {
-    // this.maxId += 1;
+    ): void {
+    this.maxId += 1;
     const isTopRated = false;
     const item = {
-      // id: this.maxId,
+      id: this.maxId,
       name,
       date,
       length,
+      authors,
       description,
       isTopRated,
     };
-    // this.courses.push(item);
-    return this.courses;
+    this.http.post(`${this.BASE_URL}/courses`, item);
   }
 
-  public getItemById(id: number): Course {
-    return this.courses.find((course: Course) => course.id === id);
+  public getItemById(id: number): Observable<Course> {
+    return this.http.get<Course>(`${this.BASE_URL}/courses/${id}`);
   }
 
   public updateItem(
@@ -52,18 +66,23 @@ export class CoursesService {
       name: string,
       description: string,
       date: string,
+      authors: Author[],
       length: number
-    ): Course[] {
-    const currentItem = this.getItemById(id);
-    currentItem.name = name;
-    currentItem.description = description;
-    currentItem.date = date;
-    currentItem.length = length;
-    return this.courses;
+    ): void {
+      const isTopRated = false;
+      const item = {
+        id,
+        name,
+        date,
+        length,
+        authors,
+        description,
+        isTopRated,
+      };
+      this.http.patch(`${this.BASE_URL}/courses/${id}`, item);
   }
 
-  public removeItem(id: number): Course[] {
-    this.courses = this.courses.filter((course: Course) => course.id !== id);
-    return this.courses;
+  public removeItem(id: number): void {
+    this.http.delete(`${this.BASE_URL}/courses/${id}`);
   }
 }

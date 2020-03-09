@@ -33,12 +33,13 @@
       ></app-text-input>
       <app-text-input
         class="form-input long"
-        type="text"
+        type="number"
         required="false" 
         name="duration"
         labelText="Duration:"
         (inputChange)="changeDuration($event)"
         [value]="length"
+        [hint]="length | duration"
       ></app-text-input>
       <app-text-input
         class="form-input long"

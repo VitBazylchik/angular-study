@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../../shared/models/user';
+import { catchError } from 'rxjs/operators';
+import { UserName } from '../../shared/models/user-name';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +18,6 @@ export class AuthService {
   public isAuthenticated = false;
   public currentUser: string;
 
-  private getName(): void {
-    this.currentUser = ``;
-  }
-
   public login(login: string, password: string): void {
     const body = {
       login,
@@ -30,6 +28,10 @@ export class AuthService {
         localStorage.setItem('token', data.token);
         this.isAuthenticated = true;
         this.router.navigateByUrl('courses');
+        this.getUserInfo().subscribe((user: User) => {
+          this.currentUser = `${user.name.first} ${user.name.last}`;
+          localStorage.setItem('userInfo', JSON.stringify(this.currentUser));
+        });
       }
     });
   }

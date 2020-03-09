@@ -22,6 +22,12 @@
       <p class="course-text">
         {{ course.description }}
       </p>
+      <p>
+        Authors: <span class="course-authors" *ngFor="let author of course.authors">
+          {{ author.name }}
+          {{ author.lastName }},
+        </span>
+      </p>
     </div>
     <div class="col-3">
       <app-button 

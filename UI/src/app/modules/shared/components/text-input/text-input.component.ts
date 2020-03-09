@@ -10,7 +10,8 @@ export class TextInputComponent implements OnInit {
   @Input() public type: string;
   @Input() public labelText: string;
   @Input() public required: boolean;
-  @Input() public long: false;
+  @Input() public hint: string;
+  @Input() public long = false;
   @Input() public value: string;
   @Output() public inputChange: EventEmitter<string> = new EventEmitter<string>();
   public placeholder: string;

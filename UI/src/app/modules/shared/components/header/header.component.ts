@@ -8,8 +8,6 @@ import { AuthService } from 'src/app/modules/login-page/service/auth.service';
 })
 export class HeaderComponent {
   constructor(public authService: AuthService) { }
-  public userLogin: string;
-
   public logOut(): void {
     this.authService.logout();
   }

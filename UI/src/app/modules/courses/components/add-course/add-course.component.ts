@@ -4,6 +4,7 @@ import { CoursesService } from '../../service/courses.service';
 import { Author } from 'src/app/modules/shared/models/author';
 import { Course } from 'src/app/modules/shared/models/course';
 import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-course',
@@ -15,29 +16,35 @@ export class AddCourseComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private router: Router,
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
   ) {}
 
   public isEditCourse = this.activeRoute.snapshot.data.edit;
   public name = '';
   public description = '';
   public date = '';
-  public length: string | number = '';
-  public authors: Author[];
+  public length: number;
+  public authors: string;
   public id: number;
   public currentCourse: Course;
+  private datePipe = new DatePipe('en-US');
 
   ngOnInit(): void {
     if (this.isEditCourse) {
-      this.id = +this.activeRoute.snapshot.params.id;
-      this.currentCourse = this.coursesService.getItemById(this.id);
-      this.name = this.currentCourse.name;
-      this.description = this.currentCourse.description;
-      this.date = this.currentCourse.date;
-      this.length = this.currentCourse.length;
-      this.authors = this.currentCourse.authors;
+      this.id = this.activeRoute.snapshot.params.id;
+      this.coursesService.getItemById(this.id).subscribe((course) => {
+        this.name = course.name;
+        this.description = course.description;
+        this.date = this.datePipe.transform(course.date, 'M/d/yyyy');
+        this.length = course.length;
+        this.authors = course.authors.reduce((acc: string, author: Author, idx: number): string => {
+          return idx === 0
+          ? `${author.name} ${author.lastName}`
+          : `${acc}, ${author.name} ${author.lastName}`;
+        }, '');
+      });
     } else {
-      this.date = '03.06.2020';
+      this.date = this.datePipe.transform(Date.now(), 'M/d/yyyy');;
     }
   }
   public changeName(value: string): void {
@@ -50,20 +57,22 @@ export class AddCourseComponent implements OnInit {
     this.date = value;
   }
   public changeAuthors(value: string): void {
-      this.authors.push({
-        name: value,
-        lastName: value,
-      });
+    this.authors = value;
   }
   public changeDuration(value: string): void {
-    this.length = value;
+    this.length = parseInt(value, 10) || 0;
   }
   public onSave(): void {
     const date = new Date(this.date).toString();
-    const duration = +this.length;
+    const duration = this.length;
+    const authors = this.authors
+      .trim()
+      .split(',')
+      .map((author: string) => author.trim().split(' '))
+      .map((authorArr): Author => ({name: authorArr[0], lastName: authorArr[1]}));
     this.id
-      ? this.coursesService.updateItem(this.id, this.name, this.description, date, duration)
-      : this.coursesService.createItem(this.name, this.description, date, duration);
+      ? this.coursesService.updateItem(this.id, this.name, this.description, date, authors, duration)
+      : this.coursesService.createItem(this.name, this.description, date, authors, duration);
     this.router.navigate(['..']);
   }
   public onCancel(): void {

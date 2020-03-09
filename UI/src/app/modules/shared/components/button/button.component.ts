@@ -10,6 +10,7 @@ export class ButtonComponent {
   @Input() text: string;
   @Input() disabled: boolean;
   @Input() colored = false;
+  @Input() long = false;
   @Input() search = false;
   @Input() clear = false;
   @Input() icon = '';

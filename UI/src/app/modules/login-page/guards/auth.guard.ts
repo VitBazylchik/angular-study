@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 import { AuthService } from '../service/auth.service';
+import { User } from '../../shared/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,14 @@ export class AuthGuard implements CanActivate {
       return true;
     }
     const url = this.router.parseUrl('/login');
-    return this.authService.getUserInfo().pipe(map((user) => !!user), catchError(err => of(url)));
+    return this.authService.getUserInfo().pipe(
+      map((user: User) => {
+        this.authService.isAuthenticated = true;
+        this.authService.currentUser = `${user.name.first} ${user.name.last}`;
+        return !!user;
+      }),
+      catchError(() => of(url),
+      )
+    );
   }
 }

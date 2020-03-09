@@ -1,10 +1,9 @@
+import { UserName } from './user-name';
+
 export interface User {
   id: number;
   fakeToken: string;
-  name: {
-    first: string;
-    last: string;
-  };
+  name: UserName;
   login: string;
   password: string;
 }

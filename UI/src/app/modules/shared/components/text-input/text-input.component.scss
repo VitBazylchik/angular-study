@@ -31,3 +31,12 @@
 .long {
   width: 100%;
 }
+
+.hint {
+  margin-left: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}

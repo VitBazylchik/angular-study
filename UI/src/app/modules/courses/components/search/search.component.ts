@@ -20,6 +20,5 @@ export class SearchComponent {
 
   public onClick(text: string): void {
     this.search.emit(text);
-    this.searchText = '';
   }
 }

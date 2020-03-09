@@ -5,8 +5,8 @@ import { AuthGuard } from '../login-page/guards/auth.guard';
 
 const routes: Routes = [
   {path: 'courses', canActivate: [AuthGuard], component: ListOfCoursesComponent},
-  {path: 'new', component: AddCourseComponent, data: {edit: false}},
-  {path: 'edit/:id', component: AddCourseComponent, data: {edit: true}},
+  {path: 'new', component: AddCourseComponent, canActivate: [AuthGuard], data: {edit: false}},
+  {path: 'edit/:id', component: AddCourseComponent, canActivate: [AuthGuard], data: {edit: true}},
 ];
 
 export const routing = RouterModule.forChild(routes);
