@@ -33,7 +33,7 @@ export class AddCourseComponent implements OnInit {
   ngOnInit(): void {
     if (this.isEditCourse) {
       this.id = this.activeRoute.snapshot.params.id;
-      this.coursesService.getItemById(this.id).subscribe((course) => {
+      this.coursesService.getItemById(this.id).subscribe((course: Course) => {
         this.blockService.block = false;
         this.name = course.name;
         this.description = course.description;
@@ -44,7 +44,7 @@ export class AddCourseComponent implements OnInit {
           ? `${author.name} ${author.lastName}`
           : `${acc}, ${author.name} ${author.lastName}`;
         }, '');
-      });
+      }, console.error);
     } else {
       this.date = this.datePipe.transform(Date.now(), 'M/d/yyyy');
     }

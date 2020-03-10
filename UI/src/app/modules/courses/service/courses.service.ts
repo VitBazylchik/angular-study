@@ -47,7 +47,7 @@ export class CoursesService {
           this.blockService.block = false;
         }, 100);
       }),
-      catchError((err) => of(err))
+      catchError(() => of(null))
     );
   }
 
@@ -77,8 +77,7 @@ export class CoursesService {
   public getItemById(id: number): Observable<Course> {
     this.blockService.block = true;
     return this.http.get<Course>(`${this.BASE_URL}/courses/${id}`).pipe(
-      retry(this.numOfRetries),
-      catchError((err) => of(err))
+      retry(this.numOfRetries)
     );
   }
 
