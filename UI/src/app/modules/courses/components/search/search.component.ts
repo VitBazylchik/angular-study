@@ -7,18 +7,13 @@ import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angul
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent {
-  public searchText: string;
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
-
-  public inputChange(value: string): void {
-    this.searchText = value;
-  }
 
   public onSubmit(event: Event): void {
     event.preventDefault();
   }
 
-  public onClick(text: string): void {
+  public onSearch(text: string): void {
     this.search.emit(text);
   }
 }

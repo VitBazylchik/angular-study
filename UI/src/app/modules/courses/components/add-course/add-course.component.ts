@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../../service/courses.service';
 import { Author } from 'src/app/modules/shared/models/author';
 import { Course } from 'src/app/modules/shared/models/course';
-import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
+import { BlockService } from 'src/app/modules/shared/services/block.service';
 
 @Component({
   selector: 'app-add-course',
@@ -17,6 +17,7 @@ export class AddCourseComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private router: Router,
     private coursesService: CoursesService,
+    private blockService: BlockService,
   ) {}
 
   public isEditCourse = this.activeRoute.snapshot.data.edit;
@@ -33,6 +34,7 @@ export class AddCourseComponent implements OnInit {
     if (this.isEditCourse) {
       this.id = this.activeRoute.snapshot.params.id;
       this.coursesService.getItemById(this.id).subscribe((course) => {
+        this.blockService.block = false;
         this.name = course.name;
         this.description = course.description;
         this.date = this.datePipe.transform(course.date, 'M/d/yyyy');
@@ -44,7 +46,7 @@ export class AddCourseComponent implements OnInit {
         }, '');
       });
     } else {
-      this.date = this.datePipe.transform(Date.now(), 'M/d/yyyy');;
+      this.date = this.datePipe.transform(Date.now(), 'M/d/yyyy');
     }
   }
   public changeName(value: string): void {
@@ -62,6 +64,18 @@ export class AddCourseComponent implements OnInit {
   public changeDuration(value: string): void {
     this.length = parseInt(value, 10) || 0;
   }
+
+  private updateRequest(date: string, authors: Author[], duration: number): void {
+    this.coursesService
+      .updateItem(this.id, this.name, this.description, date, authors, duration)
+      .subscribe(() => this.router.navigate(['..']), console.error);
+  }
+  private createRequest(date: string, authors: Author[], duration: number): void {
+    this.coursesService
+      .createItem(this.name, this.description, date, authors, duration)
+      .subscribe(() => this.router.navigate(['..']), console.error);
+  }
+
   public onSave(): void {
     const date = new Date(this.date).toString();
     const duration = this.length;
@@ -69,12 +83,12 @@ export class AddCourseComponent implements OnInit {
       .trim()
       .split(',')
       .map((author: string) => author.trim().split(' '))
-      .map((authorArr): Author => ({name: authorArr[0], lastName: authorArr[1]}));
+      .map((authorArr): Author => ({name: authorArr[0], lastName: authorArr[1] || ''}));
     this.id
-      ? this.coursesService.updateItem(this.id, this.name, this.description, date, authors, duration)
-      : this.coursesService.createItem(this.name, this.description, date, authors, duration);
-    this.router.navigate(['..']);
+      ? this.updateRequest(date, authors, duration)
+      : this.createRequest(date, authors, duration);
   }
+
   public onCancel(): void {
     if (confirm('Do you want to cancel editing?')) {
       this.router.navigate(['..']);

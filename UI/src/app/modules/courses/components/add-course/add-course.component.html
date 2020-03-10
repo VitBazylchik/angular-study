@@ -56,7 +56,7 @@
         <app-button 
           class="margin-btn"
           (btnClick)="onSave()"
-          [disabled]="!name || !description || !date"
+          [disabled]="!name || !description || !date || !authors || !length"
           text="Save"
           type="submit"
           [colored]="true"

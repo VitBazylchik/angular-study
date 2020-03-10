@@ -1,6 +1,6 @@
 <div class="section">
   <div class="container">
-    <app-search (search)="findCourses($event)"></app-search>
+    <app-search (search)="inputChange($event)"></app-search>
     <div class="add-button-wrapper">
       <app-button 
         [routerLink]="['/courses/new']"

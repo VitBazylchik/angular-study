@@ -28,8 +28,7 @@ export class AuthGuard implements CanActivate {
         this.authService.currentUser = `${user.name.first} ${user.name.last}`;
         return !!user;
       }),
-      catchError(() => of(url),
-      )
+      catchError(() => of(url))
     );
   }
 }

@@ -13,6 +13,7 @@ import { MissingPageComponent } from './components/missing-page/missing-page.com
 import { RouterModule } from '@angular/router';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { ButtonComponent } from './components/button/button.component';
+import { LoadingBlockComponent } from './components/loading-block/loading-block.component';
 
 const NgModules = [
   CommonModule,
@@ -31,6 +32,7 @@ const declarations = [
   MissingPageComponent,
   TextInputComponent,
   ButtonComponent,
+  LoadingBlockComponent,
 ];
 
 @NgModule({
