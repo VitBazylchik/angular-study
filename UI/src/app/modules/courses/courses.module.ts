@@ -7,6 +7,12 @@ import { AddCourseComponent } from './components/add-course/add-course.component
 import { routing } from './courses.routing';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../shared/interceptors/auth.interceptor';
+import { StoreModule } from '@ngrx/store';
+import { coursesFeatureKey, coursesReducer } from './store/reducer.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { LoadCoursesEffects } from './store/effects/load-courses/load-courses.effects';
+import { DeleteCourseEffects } from './store/effects/delete-course/delete-course.effects';
+import { LoadMoreEffects } from './store/effects/load-more/load-more.effects';
 
 @NgModule({
   declarations: [
@@ -17,7 +23,9 @@ import { AuthInterceptor } from '../shared/interceptors/auth.interceptor';
   ],
   imports: [
     SharedModule,
-    routing
+    routing,
+    StoreModule.forFeature(coursesFeatureKey, coursesReducer),
+    EffectsModule.forFeature([LoadCoursesEffects, DeleteCourseEffects, LoadMoreEffects]),
   ],
   exports: [ListOfCoursesComponent, AddCourseComponent],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]

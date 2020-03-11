@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on, createFeatureSelector, createSelector } from '@ngrx/store';
 import { loggedOut, loggedIn, stayIn } from './login-page.actions';
 import { Ilogin } from './login-state';
 
@@ -8,6 +8,18 @@ export const initialState: Ilogin = {
   isAuthenticated: false,
   currentUser: null,
 };
+
+export const selectPageState = createFeatureSelector<Ilogin>(loginPageFeatureKey);
+
+export const selectAuth = createSelector(
+  selectPageState,
+  (state: Ilogin) => state.isAuthenticated
+);
+
+export const selectUser = createSelector(
+  selectPageState,
+  (state: Ilogin) => state.currentUser
+);
 
 const loginPageReducer = createReducer(
   initialState,

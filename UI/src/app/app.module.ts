@@ -8,6 +8,7 @@ import { AppRouting } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,9 @@ import { EffectsModule } from '@ngrx/effects';
     AppRouting,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+    })
   ],
   bootstrap: [AppComponent]
 })

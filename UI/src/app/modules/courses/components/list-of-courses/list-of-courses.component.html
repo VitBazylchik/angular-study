@@ -10,17 +10,17 @@
       ></app-button>
     </div>
   
-    <h2 *ngIf="!courses" class="no-data">
+    <h2 *ngIf="!courses$" class="no-data">
       No data. Feel free to add new course.
     </h2>
     
     <app-course 
-      *ngFor="let course of courses | async"
+      *ngFor="let course of courses$ | async"
       [course]="course" 
       (delete)="deleteCourse($event)"
     ></app-course>
     
-    <div *ngIf="courses" 
+    <div *ngIf="courses$" 
       class="more-button-wrapper">
       <app-button
         type="button"

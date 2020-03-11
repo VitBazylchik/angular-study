@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { BlockService } from '../../services/block.service';
+import { Store, select } from '@ngrx/store';
+import { selectLoading } from '../../../courses/store/reducer.reducer'
 
 @Component({
   selector: 'app-loading-block',
@@ -7,5 +9,6 @@ import { BlockService } from '../../services/block.service';
   styleUrls: ['./loading-block.component.scss']
 })
 export class LoadingBlockComponent {
-  constructor(public blockService: BlockService) {}
+  constructor(private store: Store) {}
+  public isLoading$ = this.store.pipe(select(selectLoading));
 }

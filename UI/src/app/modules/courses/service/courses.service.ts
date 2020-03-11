@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Course } from '../../shared/models/course';
 import { Observable, of } from 'rxjs';
-import { finalize, catchError, retry } from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
 import { Author } from '../../shared/models/author';
-import { BlockService } from '../../shared/services/block.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +15,9 @@ export class CoursesService {
   private numOfRetries = 2;
   private BASE_URL = 'http://localhost:3004';
 
-  constructor(private http: HttpClient, private blockService: BlockService) {
-    // I'm doing this to find max Id to create new items
+  constructor(
+    private http: HttpClient,
+  ) {
     this.http.get<Course[]>(`${this.BASE_URL}/courses`).subscribe(
       (courses: Course[]): void => {
         this.maxId = courses.reduce((acc: number, course: Course) => Math.max(acc, course.id), 0);
@@ -26,8 +26,11 @@ export class CoursesService {
     );
   }
 
+  public incrementCoursesCount(): void {
+    this.count += this.count;
+  }
+
   public getList(searchText?: string): Observable<Course[]> {
-    this.blockService.block = true;
     const params = searchText
     ? {
       start: `${this.start}`,
@@ -42,11 +45,6 @@ export class CoursesService {
     };
     return this.http.get<Course[]>(`${this.BASE_URL}/courses`, { params }).pipe(
       retry(this.numOfRetries),
-      finalize(() => {
-        setTimeout(() => {
-          this.blockService.block = false;
-        }, 100);
-      }),
       catchError(() => of(null))
     );
   }
@@ -58,7 +56,6 @@ export class CoursesService {
       authors: Author[],
       length: number
     ): Observable<Object> {
-      this.blockService.block = true;
       this.maxId += 1;
       const itemDate = new Date(date);
       const isTopRated = false;
@@ -75,7 +72,6 @@ export class CoursesService {
   }
 
   public getItemById(id: number): Observable<Course> {
-    this.blockService.block = true;
     return this.http.get<Course>(`${this.BASE_URL}/courses/${id}`).pipe(
       retry(this.numOfRetries)
     );
@@ -89,7 +85,6 @@ export class CoursesService {
       authors: Author[],
       length: number
     ): Observable<Object> {
-      this.blockService.block = true;
       const isTopRated = false;
       const itemDate = new Date(date);
       const item = {
@@ -105,7 +100,6 @@ export class CoursesService {
   }
 
   public removeItem(id: number): Observable<Object> {
-    this.blockService.block = true;
     return this.http.delete(`${this.BASE_URL}/courses/${id}`);
   }
 }

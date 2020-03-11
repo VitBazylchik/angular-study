@@ -42,7 +42,10 @@ module.exports = (server) => {
 			});
 		}
 
-		res.json(courses);
+		setTimeout(() => {
+			res.json(courses);
+		}, 200);
+		// res.json(courses);
 	});
 
 	router.get('/error', function(req, res, next) {

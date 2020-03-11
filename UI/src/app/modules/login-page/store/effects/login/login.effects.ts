@@ -22,16 +22,13 @@ export class LoginEffects {
       const { login, password } = props;
       this.authService.login(login, password)
         .subscribe((data: {token: string}) => {
-          if (data) {
-            localStorage.setItem('token', data.token);
-            this.authService.getUserInfo().subscribe((user: User) => {
-              const props = {currentUser: `${user.name.first} ${user.name.last}`};
-              this.store.dispatch(loggedIn(props));
-              this.router.navigateByUrl('courses');
-            });
-          }
+          localStorage.setItem('token', data.token);
+          this.authService.getUserInfo().subscribe((user: User) => {
+            const props = {currentUser: `${user.name.first} ${user.name.last}`};
+            this.store.dispatch(loggedIn(props));
+            this.router.navigateByUrl('courses');
+          });
         });
     }),
-    map(stayIn)
-  ));
+  ), {dispatch: false});
 }

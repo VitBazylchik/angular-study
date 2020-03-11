@@ -3,7 +3,9 @@ import { CoursesService } from '../../service/courses.service';
 import { Course } from 'src/app/modules/shared/models/course';
 import { Observable, Subscriber, Subscription } from 'rxjs';
 import { filter, debounceTime } from 'rxjs/operators';
-import { BlockService } from 'src/app/modules/shared/services/block.service';
+import { Store, select } from '@ngrx/store';
+import { selectCourses } from '../../store/reducer.reducer';
+import { loadCourses, removeCourse, loadMoreCourses, loadSortedCourses } from '../../store/courses.actions';
 
 @Component({
   selector: 'app-list-of-courses',
@@ -11,7 +13,11 @@ import { BlockService } from 'src/app/modules/shared/services/block.service';
   styleUrls: ['./list-of-courses.component.scss']
 })
 export class ListOfCoursesComponent implements OnInit, OnDestroy {
-  constructor(private coursesService: CoursesService, private blockService: BlockService) { }
+  constructor(
+    private store: Store
+  ) {}
+  public courses$ = this.store.pipe(select(selectCourses));
+
   private inputText: string;
   private subs: Subscription;
   public courses: Observable<Course[]>;
@@ -20,7 +26,7 @@ export class ListOfCoursesComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    this.courses = this.coursesService.getList();
+    this.store.dispatch(loadCourses());
   }
 
   inputChange(searchText: string): void {
@@ -32,25 +38,19 @@ export class ListOfCoursesComponent implements OnInit, OnDestroy {
         filter((value: string) => value.length % charLength === 0),
         debounceTime(debTime),
       )
-      .subscribe((text: string) => {
-        this.courses = this.coursesService.getList(text);
+      .subscribe((searchText: string) => {
+        this.store.dispatch(loadSortedCourses({searchText}));
       }, console.error);
   }
 
   loadMore(): void {
-    const numOfNewCourses = 3;
-    this.coursesService.count += numOfNewCourses;
-    this.courses = this.coursesService.getList();
+    this.store.dispatch(loadMoreCourses());
   }
 
   deleteCourse(id: number): void {
     const confirmMsg = 'Do you really want do delete this course?';
     if (confirm(confirmMsg)) {
-      this.coursesService
-        .removeItem(id)
-        .subscribe(() => {
-          this.courses = this.coursesService.getList();
-        });
+      this.store.dispatch(removeCourse({id}));
     }
   }
 
