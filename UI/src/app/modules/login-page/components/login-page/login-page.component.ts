@@ -1,5 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { AuthService } from '../../service/auth.service';
+import { Store } from '@ngrx/store';
+import { Ilogin } from '../../store/login-state';
+import { login } from '../../store/login-page.actions';
 
 @Component({
   selector: 'app-login-page',
@@ -8,8 +10,7 @@ import { AuthService } from '../../service/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPageComponent {
-
-  constructor(private authService: AuthService) { }
+  constructor(private store: Store<{loginPage: Ilogin}>) { }
   public email: string;
   public password: string;
 
@@ -21,6 +22,10 @@ export class LoginPageComponent {
   }
 
   public onLogin(): void {
-    this.authService.login(this.email, this.password);
+    const props = {
+      login: this.email,
+      password: this.password
+    };
+    this.store.dispatch(login(props));
   }
 }

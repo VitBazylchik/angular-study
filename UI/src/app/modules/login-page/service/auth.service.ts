@@ -11,36 +11,16 @@ import { UserName } from '../../shared/models/user-name';
 })
 export class AuthService {
   constructor(
-    private router: Router,
     private http: HttpClient,
   ) { }
   private BASE_URL = 'http://localhost:3004';
-  public isAuthenticated = false;
-  public currentUser: string;
 
-  public login(login: string, password: string): void {
+  public login(login: string, password: string): Observable<{token: string}> {
     const body = {
       login,
       password,
     };
-    this.http.post<{token: string}>(`${this.BASE_URL}/auth/login`, body).subscribe((data: {token: string}) => {
-      if (data) {
-        localStorage.setItem('token', data.token);
-        this.isAuthenticated = true;
-        this.router.navigateByUrl('courses');
-        this.getUserInfo().subscribe((user: User) => {
-          this.currentUser = `${user.name.first} ${user.name.last}`;
-          localStorage.setItem('userInfo', JSON.stringify(this.currentUser));
-        });
-      }
-    });
-  }
-
-  public logout(): void {
-    localStorage.clear();
-    this.isAuthenticated = false;
-    this.currentUser = null;
-    this.router.navigateByUrl('login');
+    return this.http.post<{token: string}>(`${this.BASE_URL}/auth/login`, body);
   }
 
   public getUserInfo(): Observable<User | string> {

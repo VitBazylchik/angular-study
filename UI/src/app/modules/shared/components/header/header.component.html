@@ -2,9 +2,9 @@
   <div class="container">
     <div class="flex-around header-dark">
       <app-logo></app-logo>
-      <div *ngIf="authService.isAuthenticated">
+      <div *ngIf="isAuthenticated$ | async">
         <app-button 
-          [text]="authService.currentUser"
+          [text]="userInfo$ | async"
           type="button"
           [clear]="true"
         ></app-button>
@@ -19,5 +19,5 @@
   </div>
 </header>
 <div class="container">
-  <p class="text" *ngIf="authService.isAuthenticated">Courses</p>
+  <p class="text" *ngIf="isAuthenticated$ | async">Courses</p>
 </div>

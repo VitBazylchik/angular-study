@@ -6,6 +6,8 @@ import { CoursesModule } from './modules/courses/courses.module';
 import { LoginPageModule } from './modules/login-page/login-page.module';
 import { AppRouting } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     CoursesModule,
     LoginPageModule,
     AppRouting,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
   ],
   bootstrap: [AppComponent]
 })
