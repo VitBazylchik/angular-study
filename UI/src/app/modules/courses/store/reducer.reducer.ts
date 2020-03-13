@@ -1,25 +1,16 @@
 import { Action, createReducer, on, createFeatureSelector, createSelector } from '@ngrx/store';
 import { CoursesState } from '../models/courses-state';
-import { isLoading, loadCoursesSuccess } from './courses.actions';
+import { isLoading, loadCoursesSuccess, loadCourseToEditSuccess } from './courses.actions';
 
 export const coursesFeatureKey = 'courses';
 
 export const initialState: CoursesState = {
   courses: null,
   isLoading: false,
+  currentCourse: null,
 };
 
 export const selectState = createFeatureSelector(coursesFeatureKey);
-
-export const selectCourses = createSelector(
-  selectState,
-  (state: CoursesState) => state.courses
-);
-
-export const selectLoading = createSelector(
-  selectState,
-  (state: CoursesState) => state.isLoading
-);
 
 const reducer = createReducer(
   initialState,
@@ -27,6 +18,11 @@ const reducer = createReducer(
   on(loadCoursesSuccess, (state: CoursesState, {courses}) => ({
     ...state,
     courses,
+    isLoading: false,
+  })),
+  on(loadCourseToEditSuccess, (state: CoursesState, {course}) => ({
+    ...state,
+    currentCourse: course,
     isLoading: false,
   })),
 );

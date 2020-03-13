@@ -1,65 +1,93 @@
 <section class="course">
   <div class="container">
-    <form class="course-form">
+    <form [formGroup]="addCourseForm" (ngSubmit)="onSave()" class="course-form" >
       <h2 class="form-header">{{isEditCourse ? 'Edit' : 'Add new'}} course</h2>
-      <app-text-input
+      <app-r-input
         class="form-input long"
+        formControlName="title"
         type="text"
-        required="true" 
-        name="name"
-        labelText="Name*:"
-        (inputChange)="changeName($event)"
+        placeholder="Enter title"
         [long]="true"
-        [value]="name"
-      ></app-text-input>
-      <app-text-input
-        class="form-textarea long"
+        [invalid]="!addCourseForm.controls.title.valid"
+        [hint]="addCourseForm.value.title.length > 50"
+        hintText="Max title length 50 symbols"
+        labelText="Title*"
+      ></app-r-input>
+      <app-r-input
+        formControlName="description"
+        class="form-input long"
         type="textarea"
-        required="true" 
-        name="description"
-        labelText="Description*:"
-        (inputChange)="changeDescription($event)"
+        placeholder="Enter description"
+        [invalid]="!addCourseForm.controls.description.valid"
         [long]="true"
-        [value]="description"
-      ></app-text-input>
-      <app-text-input
+        labelText="Description*"
+        [hint]="addCourseForm.value.description.length > 500"
+        hintText="Max description length 500 symbols"
+      ></app-r-input>
+      <app-r-input
         class="form-input long"
+        formControlName="date"
         type="text"
-        required="true" 
-        name="date"
-        labelText="Date*:"
-        (inputChange)="changeDate($event)"
-        [value]="date"
-      ></app-text-input>
-      <app-text-input
+        placeholder="Enter date"
+        [invalid]="!addCourseForm.controls.date.valid"
+        [hint]="!addCourseForm.controls.date.valid"
+        hintText="Date format should be dd.mm.yyyy"
+        labelText="Date*"
+      ></app-r-input>
+      <app-r-input
         class="form-input long"
-        type="number"
-        required="false" 
-        name="duration"
-        labelText="Duration:"
-        (inputChange)="changeDuration($event)"
-        [value]="length"
-        [hint]="length | duration"
-      ></app-text-input>
-      <app-text-input
-        class="form-input long"
+        formControlName="duration"
         type="text"
-        required="false" 
-        name="authors"
-        labelText="Authors:"
-        (inputChange)="changeAuthors($event)"
-        [value]="authors"
-        [long]="true"
-      ></app-text-input>
+        [invalid]="!addCourseForm.controls.duration.valid"
+        placeholder="Enter duration"
+        labelText="Duration*"
+        [hint]="!addCourseForm.controls.duration.valid"
+        hintText="Duration should be a number of minutes (3 digits max)"
+      ></app-r-input>
+
+      <h3 class="authors-header">
+        Authors* (to edit author click on the rectangle with name):
+        <span class="author-hint">min 1 author necessary</span>
+      </h3>
+      <div class="authors-container" (click)="toggleEdit($event)">
+        <div 
+          *ngFor="let author of authorsArr.value; index as i"
+          class="author-wrapper"
+          title="Click to open editor form"
+        >
+          {{author.name}} {{author.lastName}}
+          <app-button 
+            text="X"
+            type="button"
+            (btnClick)="removeAuthor(i)"
+          ></app-button>
+        </div>
+        <app-button 
+          class="author-add-button"
+          text="Add author"
+          type="button"
+          [colored]="true"
+          (btnClick)="addAuthor()"
+        ></app-button>
+      </div>
+
+      <div *ngIf="openEditor">
+        <div *ngFor="let author of authorsArr.controls; index as i">
+          <app-authors-list 
+            [authorsGroup]="authorsArr.controls[i]"
+            [numOfAuthor]="i + 1"
+          ></app-authors-list>
+        </div>
+      </div>
+
       <p class="note"><strong>*</strong> - required inputs</p>
       <div class="form-control">
         <app-button 
           class="margin-btn"
-          (btnClick)="onSave()"
-          [disabled]="!name || !description || !date || !authors || !length"
           text="Save"
           type="submit"
           [colored]="true"
+          [disabled]="!addCourseForm.valid"
         ></app-button>
         <app-button 
           (btnClick)="onCancel()"

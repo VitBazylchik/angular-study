@@ -1,7 +1,7 @@
 import { Author } from './author';
 
 export interface Course {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   date: string;

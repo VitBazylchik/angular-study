@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Course } from '../../shared/models/course';
 import { Observable, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Author } from '../../shared/models/author';
 
 @Injectable({
   providedIn: 'root'
@@ -49,54 +48,23 @@ export class CoursesService {
     );
   }
 
-  public createItem(
-      name: string,
-      description: string,
-      date: string,
-      authors: Author[],
-      length: number
-    ): Observable<Object> {
+  public createItem(item: Course): Observable<Object> {
       this.maxId += 1;
-      const itemDate = new Date(date);
-      const isTopRated = false;
-      const item = {
+      const itemToAdd = {
+        ...item,
         id: this.maxId,
-        name,
-        date: itemDate,
-        length,
-        authors,
-        description,
-        isTopRated,
       };
-      return this.http.post(`${this.BASE_URL}/courses`, item);
+      return this.http.post(`${this.BASE_URL}/courses`, itemToAdd);
   }
 
-  public getItemById(id: number): Observable<Course> {
+  public getItemById(id: number | string): Observable<Course> {
     return this.http.get<Course>(`${this.BASE_URL}/courses/${id}`).pipe(
       retry(this.numOfRetries)
     );
   }
 
-  public updateItem(
-      id: number,
-      name: string,
-      description: string,
-      date: string,
-      authors: Author[],
-      length: number
-    ): Observable<Object> {
-      const isTopRated = false;
-      const itemDate = new Date(date);
-      const item = {
-        id,
-        name,
-        date: itemDate,
-        length,
-        authors,
-        description,
-        isTopRated,
-      };
-      return this.http.patch(`${this.BASE_URL}/courses/${id}`, item);
+  public updateItem(item: Course): Observable<Object> {
+      return this.http.patch(`${this.BASE_URL}/courses/${item.id}`, item);
   }
 
   public removeItem(id: number): Observable<Object> {

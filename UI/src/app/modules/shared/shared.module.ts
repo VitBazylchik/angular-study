@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { DurationPipe } from './pipes/duration/duration.pipe';
 import { FindPipe } from './pipes/find/find.pipe';
 import { OrderByPipe } from './pipes/order-by/order-by.pipe';
@@ -14,11 +14,13 @@ import { RouterModule } from '@angular/router';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { ButtonComponent } from './components/button/button.component';
 import { LoadingBlockComponent } from './components/loading-block/loading-block.component';
+import { RInputComponent } from './components/r-input/r-input.component';
 
 const NgModules = [
   CommonModule,
   FormsModule,
   MatIconModule,
+  ReactiveFormsModule,
 ];
 
 const declarations = [
@@ -33,6 +35,7 @@ const declarations = [
   TextInputComponent,
   ButtonComponent,
   LoadingBlockComponent,
+  RInputComponent,
 ];
 
 @NgModule({

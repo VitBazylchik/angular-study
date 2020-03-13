@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { BlockService } from '../../services/block.service';
 import { Store, select } from '@ngrx/store';
-import { selectLoading } from '../../../courses/store/reducer.reducer'
+import { selectLoading } from '../../../courses/store/selectors';
 
 @Component({
   selector: 'app-loading-block',

@@ -1,92 +1,116 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CoursesService } from '../../service/courses.service';
 import { Author } from 'src/app/modules/shared/models/author';
 import { Course } from 'src/app/modules/shared/models/course';
-import { DatePipe } from '@angular/common';
-import { BlockService } from 'src/app/modules/shared/services/block.service';
+import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { dateValidator } from './validations/date';
+import { durationValidator } from './validations/duration';
+import { Store, select } from '@ngrx/store';
+import { loadCourseToEdit, editCourse, addCourse } from '../../store/courses.actions';
+import { selectCourse } from '../../store/selectors';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
-  styleUrls: ['./add-course.component.scss']
+  styleUrls: ['./add-course.component.scss'],
 })
 export class AddCourseComponent implements OnInit {
+  public isEditCourse = this.activeRoute.snapshot.data.edit;
+  public addCourseForm: FormGroup;
+  public id: number;
+  public openEditor = false;
 
   constructor(
+    private fb: FormBuilder,
     private activeRoute: ActivatedRoute,
     private router: Router,
-    private coursesService: CoursesService,
-    private blockService: BlockService,
-  ) {}
+    private store: Store,
+  ) {
+    const maxTitleLength = 50;
+    const maxDescriptionLength = 500;
+    this.addCourseForm = this.fb.group({
+      title: ['', [Validators.maxLength(maxTitleLength), Validators.required]],
+      description: ['', [Validators.maxLength(maxDescriptionLength), Validators.required]],
+      date: ['', [dateValidator, Validators.required, Validators.maxLength(10)]],
+      duration: ['', [Validators.required, Validators.maxLength(3), durationValidator]],
+      authors: this.fb.array([]),
+    });
+  }
 
-  public isEditCourse = this.activeRoute.snapshot.data.edit;
-  public name = '';
-  public description = '';
-  public date = '';
-  public length: number;
-  public authors: string;
-  public id: number;
-  public currentCourse: Course;
-  private datePipe = new DatePipe('en-US');
+  get authorsArr(): FormArray {
+    return <FormArray>this.addCourseForm.controls.authors;
+  }
+
+  initAuthor(author: Author): FormGroup {
+    const { name, lastName } = author;
+    return this.fb.group({
+      name: [name, Validators.required],
+      lastName: [lastName]
+    });
+  }
+
+  addAuthor = (author?: Author): void => {
+    const authorToAdd = author || {name: 'Name', lastName: 'Surname'};
+    const newAuthor = this.initAuthor(authorToAdd);
+    const formAuthors = <FormArray>this.addCourseForm.controls.authors;
+    formAuthors.push(newAuthor);
+  }
+
+  removeAuthor(authorNum: number): void {
+    const formAuthors = <FormArray>this.addCourseForm.controls.authors;
+    if (formAuthors.length === 1) {
+      return;
+    }
+    formAuthors.removeAt(authorNum);
+  }
+
+  toggleEdit(event): void {
+    if (event.target.tagName === 'BUTTON') {
+      return;
+    }
+    this.openEditor = !this.openEditor;
+  }
 
   ngOnInit(): void {
     if (this.isEditCourse) {
-      this.id = this.activeRoute.snapshot.params.id;
-      this.coursesService.getItemById(this.id).subscribe((course: Course) => {
-        this.blockService.block = false;
-        this.name = course.name;
-        this.description = course.description;
-        this.date = this.datePipe.transform(course.date, 'M/d/yyyy');
-        this.length = course.length;
-        this.authors = course.authors.reduce((acc: string, author: Author, idx: number): string => {
-          return idx === 0
-          ? `${author.name} ${author.lastName}`
-          : `${acc}, ${author.name} ${author.lastName}`;
-        }, '');
-      }, console.error);
+      this.id = parseInt(this.activeRoute.snapshot.params.id, 10);
+      this.store.dispatch(loadCourseToEdit({id: this.id}));
+      const currentCourse$ = this.store.pipe(select(selectCourse));
+      currentCourse$.subscribe((course: Course) => {
+        if (course) {
+          course.authors.forEach(this.addAuthor);
+          this.addCourseForm.patchValue({
+            title: course.name,
+            description: course.description,
+            date: moment(course.date).format('DD.MM.YYYY'),
+            duration: course.length,
+          });
+        }
+      });
     } else {
-      this.date = this.datePipe.transform(Date.now(), 'M/d/yyyy');
+      this.addCourseForm.patchValue({date: moment(Date.now()).format('DD.MM.YYYY')});
     }
   }
-  public changeName(value: string): void {
-    this.name = value;
-  }
-  public changeDescription(value: string): void {
-    this.description = value;
-  }
-  public changeDate(value: string): void {
-    this.date = value;
-  }
-  public changeAuthors(value: string): void {
-    this.authors = value;
-  }
-  public changeDuration(value: string): void {
-    this.length = parseInt(value, 10) || 0;
-  }
 
-  private updateRequest(date: string, authors: Author[], duration: number): void {
-    this.coursesService
-      .updateItem(this.id, this.name, this.description, date, authors, duration)
-      .subscribe(() => this.router.navigate(['..']), console.error);
-  }
-  private createRequest(date: string, authors: Author[], duration: number): void {
-    this.coursesService
-      .createItem(this.name, this.description, date, authors, duration)
-      .subscribe(() => this.router.navigate(['..']), console.error);
-  }
-
-  public onSave(): void {
-    const date = new Date(this.date).toString();
-    const duration = this.length;
-    const authors = this.authors
-      .trim()
-      .split(',')
-      .map((author: string) => author.trim().split(' '))
-      .map((authorArr): Author => ({name: authorArr[0], lastName: authorArr[1] || ''}));
+  onSave(): void {
+    if (!this.addCourseForm.valid) {
+      return;
+    }
+    const authorData = this.addCourseForm.value;
+    const length = parseInt(authorData.duration, 10);
+    const item = {
+      id: this.id || null,
+      name: authorData.title,
+      description: authorData.description,
+      date: moment(authorData.date, 'DD.MM.YYYY').format(),
+      length,
+      authors: authorData.authors,
+      isTopRated: false,
+    };
     this.id
-      ? this.updateRequest(date, authors, duration)
-      : this.createRequest(date, authors, duration);
+      ? this.store.dispatch(editCourse(item))
+      : this.store.dispatch(addCourse(item));
   }
 
   public onCancel(): void {

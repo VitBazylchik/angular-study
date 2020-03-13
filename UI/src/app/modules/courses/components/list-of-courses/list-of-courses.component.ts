@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CoursesService } from '../../service/courses.service';
 import { Course } from 'src/app/modules/shared/models/course';
 import { Observable, Subscriber, Subscription } from 'rxjs';
 import { filter, debounceTime } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import { selectCourses } from '../../store/reducer.reducer';
+import { selectCourses } from '../../store/selectors';
 import { loadCourses, removeCourse, loadMoreCourses, loadSortedCourses } from '../../store/courses.actions';
 
 @Component({
