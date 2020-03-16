@@ -49,11 +49,12 @@
         Authors* (to edit author click on the rectangle with name):
         <span class="author-hint">min 1 author necessary</span>
       </h3>
-      <div class="authors-container" (click)="toggleEdit($event)">
+      <div class="authors-container">
         <div 
           *ngFor="let author of authorsArr.value; index as i"
           class="author-wrapper"
           title="Click to open editor form"
+          (click)="toggleEdit(i)"
         >
           {{author.name}} {{author.lastName}}
           <app-button 
@@ -71,11 +72,12 @@
         ></app-button>
       </div>
 
-      <div *ngIf="openEditor">
+      <div>
         <div *ngFor="let author of authorsArr.controls; index as i">
           <app-authors-list 
             [authorsGroup]="authorsArr.controls[i]"
             [numOfAuthor]="i + 1"
+            [isOpen]="i === authorToEdit"
           ></app-authors-list>
         </div>
       </div>

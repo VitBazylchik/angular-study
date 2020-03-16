@@ -20,8 +20,8 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   public isEditCourse = this.activeRoute.snapshot.data.edit;
   public addCourseForm: FormGroup;
   public id: number;
-  public openEditor = false;
   public courseSubs: Subscription;
+  public authorToEdit: number;
 
   constructor(
     private fb: FormBuilder,
@@ -68,10 +68,8 @@ export class AddCourseComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleEdit(event): void {
-    if (event.target.tagName !== 'BUTTON') {
-      this.openEditor = !this.openEditor;
-    }
+  toggleEdit(index: number): void {
+    this.authorToEdit = this.authorToEdit === index ? null : index;
   }
 
   ngOnInit(): void {

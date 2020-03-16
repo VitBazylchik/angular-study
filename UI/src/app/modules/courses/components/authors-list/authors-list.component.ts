@@ -10,4 +10,5 @@ import { FormGroup } from '@angular/forms';
 export class AuthorsListComponent {
   @Input() public authorsGroup: FormGroup;
   @Input() public numOfAuthor: number;
+  @Input() public isOpen: boolean;
 }
