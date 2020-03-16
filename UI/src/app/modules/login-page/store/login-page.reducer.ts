@@ -1,5 +1,5 @@
 import { Action, createReducer, on, createFeatureSelector, createSelector } from '@ngrx/store';
-import { loggedOut, loggedIn, stayIn } from './login-page.actions';
+import { loggedOut, loggedIn } from './login-page.actions';
 import { Ilogin } from './login-state';
 
 export const loginPageFeatureKey = 'loginPage';
@@ -28,12 +28,11 @@ const loginPageReducer = createReducer(
     isAuthenticated: false,
     currentUser: null,
   })),
-  on(loggedIn, (state: Ilogin, { currentUser }) => ({
+  on(loggedIn, (state: Ilogin, { currentUser }: { currentUser: string}) => ({
     ...state,
     isAuthenticated: true,
     currentUser,
-  })),
-  on(stayIn, (state: Ilogin) => ({...state}))
+  }))
 );
 
 export function reducer(state: Ilogin | undefined, action: Action) {

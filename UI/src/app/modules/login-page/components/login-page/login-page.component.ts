@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Ilogin } from '../../store/login-state';
-import { login } from '../../store/login-page.actions';
+import { loginAction } from '../../store/login-page.actions';
 
 @Component({
   selector: 'app-login-page',
@@ -26,6 +26,6 @@ export class LoginPageComponent {
       login: this.email,
       password: this.password
     };
-    this.store.dispatch(login(props));
+    this.store.dispatch(loginAction(props));
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, catchError, switchMap, filter } from 'rxjs/operators';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { AuthService } from '../service/auth.service';
 import { User } from '../../shared/models/user';
 import { Store, select } from '@ngrx/store';
@@ -35,10 +35,9 @@ export class AuthGuard implements CanActivate {
       })
     );
     return this.store.pipe(
-      select(state => state.loginPage.isAuthenticated),
+      select((currState: {loginPage: Ilogin}) => currState.loginPage.isAuthenticated),
       switchMap(() => check$),
-      filter((value) => value),
-      map((value) => value || url),
+      map((value: boolean) => value || url),
       catchError(() => of(url))
     );
   }

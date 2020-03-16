@@ -28,10 +28,10 @@ export class ListOfCoursesComponent implements OnInit, OnDestroy {
     this.store.dispatch(loadCourses());
   }
 
-  inputChange(searchText: string): void {
+  inputChange(textToSearch: string): void {
     const charLength = 3;
     const debTime = 1500;
-    this.inputText = searchText;
+    this.inputText = textToSearch;
     this.subs = this.obs
       .pipe(
         filter((value: string) => value.length % charLength === 0),

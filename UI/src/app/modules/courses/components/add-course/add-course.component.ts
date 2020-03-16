@@ -45,7 +45,7 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   }
 
   initAuthor(author: Author): FormGroup {
-    const { name, lastName } = author;
+    const { name, lastName }: Author = author;
     return this.fb.group({
       name: [name, Validators.required],
       lastName: [lastName]
@@ -61,17 +61,15 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 
   removeAuthor(authorNum: number): void {
     const formAuthors = <FormArray>this.addCourseForm.controls.authors;
-    if (formAuthors.length === 1) {
-      return;
+    if (formAuthors.length !== 1) {
+      formAuthors.removeAt(authorNum);
     }
-    formAuthors.removeAt(authorNum);
   }
 
   toggleEdit(event): void {
-    if (event.target.tagName === 'BUTTON') {
-      return;
+    if (event.target.tagName !== 'BUTTON') {
+      this.openEditor = !this.openEditor;
     }
-    this.openEditor = !this.openEditor;
   }
 
   ngOnInit(): void {
