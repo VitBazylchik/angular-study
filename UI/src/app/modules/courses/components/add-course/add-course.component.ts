@@ -31,11 +31,13 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   ) {
     const maxTitleLength = 50;
     const maxDescriptionLength = 500;
+    const maxDateLength = 10;
+    const maxDurationLength = 3;
     this.addCourseForm = this.fb.group({
       title: ['', [Validators.maxLength(maxTitleLength), Validators.required]],
       description: ['', [Validators.maxLength(maxDescriptionLength), Validators.required]],
-      date: ['', [dateValidator, Validators.required, Validators.maxLength(10)]],
-      duration: ['', [Validators.required, Validators.maxLength(3), durationValidator]],
+      date: ['', [dateValidator, Validators.required, Validators.maxLength(maxDateLength)]],
+      duration: ['', [Validators.required, Validators.maxLength(maxDurationLength), durationValidator]],
       authors: this.fb.array([]),
     });
   }
