@@ -97,7 +97,6 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(clearState());
-    this.courseSubs.unsubscribe();
   }
 
   onSave(): void {
