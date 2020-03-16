@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Author } from 'src/app/modules/shared/models/author';
 import { Course } from 'src/app/modules/shared/models/course';
@@ -6,20 +6,22 @@ import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 import { dateValidator } from './validations/date';
 import { durationValidator } from './validations/duration';
 import { Store, select } from '@ngrx/store';
-import { loadCourseToEdit, editCourse, addCourse } from '../../store/courses.actions';
+import { loadCourseToEdit, editCourse, addCourse, clearState } from '../../store/courses.actions';
 import { selectCourse } from '../../store/selectors';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
   styleUrls: ['./add-course.component.scss'],
 })
-export class AddCourseComponent implements OnInit {
+export class AddCourseComponent implements OnInit, OnDestroy {
   public isEditCourse = this.activeRoute.snapshot.data.edit;
   public addCourseForm: FormGroup;
   public id: number;
   public openEditor = false;
+  public courseSubs: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -77,7 +79,7 @@ export class AddCourseComponent implements OnInit {
       this.id = parseInt(this.activeRoute.snapshot.params.id, 10);
       this.store.dispatch(loadCourseToEdit({id: this.id}));
       const currentCourse$ = this.store.pipe(select(selectCourse));
-      currentCourse$.subscribe((course: Course) => {
+      this.courseSubs = currentCourse$.subscribe((course: Course) => {
         if (course) {
           course.authors.forEach(this.addAuthor);
           this.addCourseForm.patchValue({
@@ -91,6 +93,11 @@ export class AddCourseComponent implements OnInit {
     } else {
       this.addCourseForm.patchValue({date: moment(Date.now()).format('DD.MM.YYYY')});
     }
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(clearState());
+    this.courseSubs.unsubscribe();
   }
 
   onSave(): void {

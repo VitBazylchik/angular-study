@@ -48,3 +48,7 @@ export const loadMoreCourses = createAction(
 export const isLoading = createAction(
   '[Courses] is loading'
 );
+
+export const clearState = createAction(
+  '[Courses] clear state'
+);
