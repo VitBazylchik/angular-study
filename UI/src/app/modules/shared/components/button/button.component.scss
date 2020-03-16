@@ -1,0 +1,69 @@
+@import '../../../../../assets/variables.scss';
+
+.button {
+  border: none;
+  color: $btnText;
+  background-color: grey;
+  padding: 10px 20px;
+  font-size: $mainFontSize;
+  font-weight: bold;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: inherit;
+  }
+
+  &:hover {
+    background-color: rgb(107, 107, 107);
+
+    &:disabled {
+      background-color: grey;
+    }
+  }
+}
+
+.colored {
+  color: $btnText;
+  background-color: $btnBg;
+  
+  &:hover {
+    background-color: $btnHover;
+    &:disabled {
+      background-color: $btnBg;
+    }
+  }
+}
+
+.icon {
+  position: relative;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+}
+
+.search {
+  color: $btnText;
+  background-color: $searchBtnBg;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: $searchBtnBgHover;
+  }
+}
+
+.clear {
+  background-color: inherit;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: rgba(0,0,0,0.1);
+  }
+}
+
+.long {
+  width: 100%;
+  text-align: center;
+}

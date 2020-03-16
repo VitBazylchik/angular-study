@@ -1,0 +1,23 @@
+<header class="header">
+  <div class="container">
+    <div class="flex-around header-dark">
+      <app-logo></app-logo>
+      <div *ngIf="isAuthenticated$ | async">
+        <app-button 
+          [text]="userInfo$ | async"
+          type="button"
+          [clear]="true"
+        ></app-button>
+        <app-button 
+          (btnClick)="logOut()"
+          text="Log out"
+          type="button"
+          [clear]="true"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <p class="text" *ngIf="isAuthenticated$ | async">Courses</p>
+</div>

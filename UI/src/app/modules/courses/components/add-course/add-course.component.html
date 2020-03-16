@@ -1,0 +1,102 @@
+<section class="course">
+  <div class="container">
+    <form [formGroup]="addCourseForm" (ngSubmit)="onSave()" class="course-form" >
+      <h2 class="form-header">{{isEditCourse ? 'Edit' : 'Add new'}} course</h2>
+      <app-r-input
+        class="form-input long"
+        formControlName="title"
+        type="text"
+        placeholder="Enter title"
+        [long]="true"
+        [invalid]="!addCourseForm.controls.title.valid"
+        [hint]="addCourseForm.value.title.length > 50"
+        hintText="Max title length 50 symbols"
+        labelText="Title*"
+      ></app-r-input>
+      <app-r-input
+        formControlName="description"
+        class="form-input long"
+        type="textarea"
+        placeholder="Enter description"
+        [invalid]="!addCourseForm.controls.description.valid"
+        [long]="true"
+        labelText="Description*"
+        [hint]="addCourseForm.value.description.length > 500"
+        hintText="Max description length 500 symbols"
+      ></app-r-input>
+      <app-r-input
+        class="form-input long"
+        formControlName="date"
+        type="text"
+        placeholder="Enter date"
+        [invalid]="!addCourseForm.controls.date.valid"
+        [hint]="!addCourseForm.controls.date.valid"
+        hintText="Date format should be dd.mm.yyyy"
+        labelText="Date*"
+      ></app-r-input>
+      <app-r-input
+        class="form-input long"
+        formControlName="duration"
+        type="text"
+        [invalid]="!addCourseForm.controls.duration.valid"
+        placeholder="Enter duration"
+        labelText="Duration*"
+        [hint]="!addCourseForm.controls.duration.valid"
+        hintText="Duration should be a number of minutes (3 digits max)"
+      ></app-r-input>
+
+      <h3 class="authors-header">
+        Authors* (to edit author click on the rectangle with name):
+        <span class="author-hint">min 1 author necessary</span>
+      </h3>
+      <div class="authors-container">
+        <div 
+          *ngFor="let author of authorsArr.value; index as i"
+          class="author-wrapper"
+          title="Click to open editor form"
+          (click)="toggleEdit(i)"
+        >
+          {{author.name}} {{author.lastName}}
+          <app-button 
+            text="X"
+            type="button"
+            (btnClick)="removeAuthor(i)"
+          ></app-button>
+        </div>
+        <app-button 
+          class="author-add-button"
+          text="Add author"
+          type="button"
+          [colored]="true"
+          (btnClick)="addAuthor()"
+        ></app-button>
+      </div>
+
+      <div>
+        <div *ngFor="let author of authorsArr.controls; index as i">
+          <app-authors-list 
+            [authorsGroup]="authorsArr.controls[i]"
+            [numOfAuthor]="i + 1"
+            [isOpen]="i === authorToEdit"
+          ></app-authors-list>
+        </div>
+      </div>
+
+      <p class="note"><strong>*</strong> - required inputs</p>
+      <div class="form-control">
+        <app-button 
+          class="margin-btn"
+          text="Save"
+          type="submit"
+          [colored]="true"
+          [disabled]="!addCourseForm.valid"
+        ></app-button>
+        <app-button 
+          (btnClick)="onCancel()"
+          text="Cancel"
+          type="button"
+        ></app-button>
+      </div>
+    </form>
+  </div>
+</section>

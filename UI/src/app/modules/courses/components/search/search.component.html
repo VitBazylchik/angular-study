@@ -1,0 +1,15 @@
+<form class="search-form" (submit)="onSubmit($event)">
+  <app-text-input 
+    class="search-input"
+    type="text"
+    required="true" 
+    name="search"
+    (inputChange)="onSearch($event)"
+  ></app-text-input>
+  <!-- <app-button 
+    (btnClick)="onClick(searchText)"
+    text="Search"
+    type="submit"
+    [search]='true'
+  ></app-button> -->
+</form>

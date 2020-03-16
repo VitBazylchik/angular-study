@@ -1,0 +1,11 @@
+@import "../../../../../assets/variables.scss";
+
+.footer {
+  padding: 20px 0;
+  background: $headFootBg;
+
+  &-paragraph {
+    margin-bottom: 0;
+    color: #858597;
+  }
+}

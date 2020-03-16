@@ -1,0 +1,38 @@
+<section class="login">
+  <div class="container">
+    <div class="row justify-content-center">
+      <form class="login-form">
+        <h2 class="form-header">Login</h2>
+          <app-text-input
+            class="form-input"
+            type="text"
+            required="true" 
+            name="email"
+            labelText="Email:"
+            (inputChange)="emailChange($event)"
+            [long]="true"
+          ></app-text-input>
+          <app-text-input 
+            class="form-input"
+            type="password"
+            required="true" 
+            name="password"
+            labelText="Password:"
+            (inputChange)="passwordChange($event)"
+            [long]="true"
+          ></app-text-input>
+        <div class="form-control flex-around">
+          <a routerLink="/fff">
+            <p>Forgot your password?</p>
+          </a>
+          <app-button 
+            (btnClick)="onLogin()"
+            [disabled]="!email || !password"
+            text="Login"
+            type="submit"
+          ></app-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

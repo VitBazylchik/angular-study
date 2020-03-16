@@ -1,0 +1,26 @@
+@import '../../../../../assets/variables.scss';
+
+.login {
+  background-color: $mainBg;
+  height: 87%;
+  display: flex;
+  align-items: center;
+
+  &-form {
+    padding: 30px 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    display: flex;
+    flex-flow: column;
+  }
+}
+
+.form-input {
+  min-width: 300px;
+  margin-bottom: 15px;
+}
+
+.form-control {
+  margin-top: 20px;
+  align-items: center;
+}

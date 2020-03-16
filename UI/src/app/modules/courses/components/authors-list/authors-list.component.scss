@@ -1,0 +1,18 @@
+@import "../../../../../assets/variables.scss";
+
+.author {
+  &-form {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  &-header {
+    flex-basis: 100%;
+  }
+
+  &-surname {
+    margin-left: 20px;
+  }
+
+}
