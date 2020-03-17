@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Course } from 'src/app/modules/shared/models/course';
-import { Observable, Subscriber, Subscription } from 'rxjs';
+import { Observable, Subscription, Subject } from 'rxjs';
 import { filter, debounceTime } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { selectCourses } from '../../store/selectors';
@@ -16,33 +16,28 @@ export class ListOfCoursesComponent implements OnInit, OnDestroy {
     private store: Store
   ) {}
   public courses$ = this.store.pipe(select(selectCourses));
-
-  private inputText: string;
-  private subs: Subscription;
+  private timeToWait = 1500;
+  private charLengthToSearch = 3;
   public courses: Observable<Course[]>;
-  private obs = new Observable((subscriber: Subscriber<string>): void => {
-    subscriber.next(this.inputText);
-  });
+  private subject = new Subject<string>();
+  private subs: Subscription;
 
   ngOnInit(): void {
     this.store.dispatch(loadCourses());
+    this.subs = this.subject.pipe(
+      filter((value: string) => value.length % this.charLengthToSearch === 0),
+      debounceTime(this.timeToWait),
+    )
+    .subscribe((searchText: string) => {
+      this.store.dispatch(loadSortedCourses({searchText}));
+    }, console.error);
   }
 
   inputChange(textToSearch: string): void {
-    const charLength = 3;
-    const debTime = 1500;
-    this.inputText = textToSearch;
-    this.subs = this.obs
-      .pipe(
-        filter((value: string) => value.length % charLength === 0),
-        debounceTime(debTime),
-      )
-      .subscribe((searchText: string) => {
-        this.store.dispatch(loadSortedCourses({searchText}));
-      }, console.error);
+    this.subject.next(textToSearch);
   }
 
-  loadMore(): void {
+  loadCourses(): void {
     this.store.dispatch(loadMoreCourses());
   }
 

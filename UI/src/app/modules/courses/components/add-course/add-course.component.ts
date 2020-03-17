@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Author } from 'src/app/modules/shared/models/author';
 import { Course } from 'src/app/modules/shared/models/course';
-import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { dateValidator } from './validations/date';
 import { durationValidator } from './validations/duration';
 import { Store, select } from '@ngrx/store';
@@ -17,33 +17,49 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./add-course.component.scss'],
 })
 export class AddCourseComponent implements OnInit, OnDestroy {
-  public isEditCourse = this.activeRoute.snapshot.data.edit;
+  public isEditCourse: boolean = this.activeRoute.snapshot.data.edit;
   public addCourseForm: FormGroup;
+  public titleControl: FormControl;
+  public descriptionControl: FormControl;
+  public dateControl: FormControl;
+  public durationControl: FormControl;
+  public authorsControl: FormArray;
   public id: number;
   public courseSubs: Subscription;
   public authorToEdit: number;
+  private maxTitleLength = 50;
+  private maxDescriptionLength = 500;
+  private maxDateLength = 10;
+  private maxDurationLength = 3;
 
   constructor(
     private fb: FormBuilder,
     private activeRoute: ActivatedRoute,
     private router: Router,
     private store: Store,
-  ) {
-    const maxTitleLength = 50;
-    const maxDescriptionLength = 500;
-    const maxDateLength = 10;
-    const maxDurationLength = 3;
-    this.addCourseForm = this.fb.group({
-      title: ['', [Validators.maxLength(maxTitleLength), Validators.required]],
-      description: ['', [Validators.maxLength(maxDescriptionLength), Validators.required]],
-      date: ['', [dateValidator, Validators.required, Validators.maxLength(maxDateLength)]],
-      duration: ['', [Validators.required, Validators.maxLength(maxDurationLength), durationValidator]],
-      authors: this.fb.array([]),
+  ) {}
+
+  private buildForm(maxTitleLength: number, maxDescriptionLength: number, maxDateLength: number, maxDurationLength: number): FormGroup {
+    this.titleControl = this.fb.control('', [Validators.maxLength(maxTitleLength), Validators.required]);
+    this.descriptionControl = this.fb.control('', [Validators.maxLength(maxDescriptionLength), Validators.required]);
+    this.dateControl = this.fb.control('', [dateValidator, Validators.required, Validators.maxLength(maxDateLength)]);
+    this.durationControl = this.fb.control('', [Validators.required, Validators.maxLength(maxDurationLength), durationValidator]);
+    this.authorsControl = this.fb.array([]);
+    return this.fb.group({
+      title: this.titleControl,
+      description: this.descriptionControl,
+      date: this.dateControl,
+      duration: this.durationControl,
+      authors: this.authorsControl,
     });
   }
 
-  get authorsArr(): FormArray {
-    return <FormArray>this.addCourseForm.controls.authors;
+  private getId(): number {
+    return parseInt(this.activeRoute.snapshot.params.id, 10);
+  }
+
+  get authors(): FormArray {
+    return this.authorsControl.value;
   }
 
   initAuthor(author: Author): FormGroup {
@@ -57,14 +73,12 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   addAuthor = (author?: Author): void => {
     const authorToAdd = author || {name: 'Name', lastName: 'Surname'};
     const newAuthor = this.initAuthor(authorToAdd);
-    const formAuthors = <FormArray>this.addCourseForm.controls.authors;
-    formAuthors.push(newAuthor);
+    this.authorsControl.push(newAuthor);
   }
 
   removeAuthor(authorNum: number): void {
-    const formAuthors = <FormArray>this.addCourseForm.controls.authors;
-    if (formAuthors.length !== 1) {
-      formAuthors.removeAt(authorNum);
+    if (this.authorsControl.length !== 1) {
+      this.authorsControl.removeAt(authorNum);
     }
   }
 
@@ -73,8 +87,9 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.addCourseForm = this.buildForm(this.maxTitleLength, this.maxDescriptionLength, this.maxDateLength, this.maxDurationLength);
     if (this.isEditCourse) {
-      this.id = parseInt(this.activeRoute.snapshot.params.id, 10);
+      this.id = this.getId();
       this.store.dispatch(loadCourseToEdit({id: this.id}));
       const currentCourse$ = this.store.pipe(select(selectCourse));
       this.courseSubs = currentCourse$.subscribe((course: Course) => {
@@ -98,9 +113,6 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   }
 
   onSave(): void {
-    if (!this.addCourseForm.valid) {
-      return;
-    }
     const authorData = this.addCourseForm.value;
     const length = parseInt(authorData.duration, 10);
     const item = {
@@ -118,6 +130,7 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   }
 
   public onCancel(): void {
+    console.log(this.addCourseForm);
     if (confirm('Do you want to cancel editing?')) {
       this.router.navigate(['..']);
     }

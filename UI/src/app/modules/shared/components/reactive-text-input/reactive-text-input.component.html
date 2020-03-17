@@ -1,9 +1,9 @@
 <div class="column">
   <p class="input-label" *ngIf="labelText" >
     {{labelText}}
-    <span *ngIf="hint" class="hint">{{hintText}}</span>
+    <span *ngIf="invalid" class="hint">{{hintText}}</span>
   </p>
-  <input 
+  <input
     *ngIf="type !== 'textarea'"
     [type]="type"
     [ngClass]="{'input': true, 'long': long, 'invalid': invalid}"

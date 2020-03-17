@@ -9,10 +9,6 @@ import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angul
 export class SearchComponent {
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
 
-  public onSubmit(event: Event): void {
-    event.preventDefault();
-  }
-
   public onSearch(text: string): void {
     this.search.emit(text);
   }

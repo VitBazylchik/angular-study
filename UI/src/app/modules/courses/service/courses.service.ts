@@ -8,25 +8,18 @@ import { catchError, retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CoursesService {
-  public start = 0;
-  public count = 3;
-  public maxId: number;
+  private start = 0;
+  private count = 3;
   private numOfRetries = 2;
   private BASE_URL = 'http://localhost:3004';
 
   constructor(
     private http: HttpClient,
-  ) {
-    this.http.get<Course[]>(`${this.BASE_URL}/courses`).subscribe(
-      (courses: Course[]): void => {
-        this.maxId = courses.reduce((acc: number, course: Course) => Math.max(acc, course.id), 0);
-      },
-      console.error
-    );
-  }
+  ) {}
 
   public incrementCoursesCount(): void {
-    this.count += this.count;
+    const numOfCourses = 3;
+    this.count += numOfCourses;
   }
 
   public getList(searchText?: string): Observable<Course[]> {
@@ -49,12 +42,7 @@ export class CoursesService {
   }
 
   public createItem(item: Course): Observable<Object> {
-      this.maxId += 1;
-      const itemToAdd = {
-        ...item,
-        id: this.maxId,
-      };
-      return this.http.post(`${this.BASE_URL}/courses`, itemToAdd);
+      return this.http.post(`${this.BASE_URL}/courses`, item);
   }
 
   public getItemById(id: number | string): Observable<Course> {

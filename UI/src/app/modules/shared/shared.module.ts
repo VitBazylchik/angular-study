@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { ButtonComponent } from './components/button/button.component';
 import { LoadingBlockComponent } from './components/loading-block/loading-block.component';
-import { RInputComponent } from './components/r-input/r-input.component';
+import { ReactiveTextInputComponent } from './components/reactive-text-input/reactive-text-input.component';
 
 const NgModules = [
   CommonModule,
@@ -35,7 +35,7 @@ const declarations = [
   TextInputComponent,
   ButtonComponent,
   LoadingBlockComponent,
-  RInputComponent,
+  ReactiveTextInputComponent,
 ];
 
 @NgModule({

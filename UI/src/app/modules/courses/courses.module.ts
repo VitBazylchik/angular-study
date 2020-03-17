@@ -10,14 +10,8 @@ import { AuthInterceptor } from '../shared/interceptors/auth.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { coursesFeatureKey, coursesReducer } from './store/reducer.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { LoadCoursesEffects } from './store/effects/load-courses/load-courses.effects';
-import { DeleteCourseEffects } from './store/effects/delete-course/delete-course.effects';
-import { LoadMoreEffects } from './store/effects/load-more/load-more.effects';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AuthorsListComponent } from './components/authors-list/authors-list.component';
-import { LoadEditCourseEffects } from './store/effects/load-edit-course/load-edit-course.effects';
-import { AddCourseEffects } from './store/effects/add-course/add-course.effects';
-import { EditCourseEffects } from './store/effects/edit-course/edit-course.effects';
+import { CoursesEffects } from './store/courses.effects';
 
 @NgModule({
   declarations: [
@@ -31,7 +25,7 @@ import { EditCourseEffects } from './store/effects/edit-course/edit-course.effec
     SharedModule,
     routing,
     StoreModule.forFeature(coursesFeatureKey, coursesReducer),
-    EffectsModule.forFeature([LoadCoursesEffects, DeleteCourseEffects, LoadMoreEffects, LoadEditCourseEffects, AddCourseEffects, EditCourseEffects]),
+    EffectsModule.forFeature([CoursesEffects]),
   ],
   exports: [ListOfCoursesComponent, AddCourseComponent],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]

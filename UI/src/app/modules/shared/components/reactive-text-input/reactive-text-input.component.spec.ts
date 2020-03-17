@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RInputComponent } from './r-input.component';
+import { ReactiveTextInputComponent } from './reactive-text-input.component';
 
 describe('RInputComponent', () => {
-  let component: RInputComponent;
-  let fixture: ComponentFixture<RInputComponent>;
+  let component: ReactiveTextInputComponent;
+  let fixture: ComponentFixture<ReactiveTextInputComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RInputComponent ]
+      declarations: [ ReactiveTextInputComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RInputComponent);
+    fixture = TestBed.createComponent(ReactiveTextInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

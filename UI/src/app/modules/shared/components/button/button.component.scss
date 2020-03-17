@@ -1,4 +1,4 @@
-@import '../../../../../assets/variables.scss';
+@import '~src/assets/variables.scss';
 
 .button {
   border: none;
@@ -27,7 +27,7 @@
 .colored {
   color: $btnText;
   background-color: $btnBg;
-  
+
   &:hover {
     background-color: $btnHover;
     &:disabled {
