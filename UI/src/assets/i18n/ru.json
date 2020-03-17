@@ -1,0 +1,20 @@
+{
+  "PAGES": {
+    "LIST_OF_COURSES": {
+      "ADD_BUTTON": "Добавить курс",
+      "NO_DATA": "Нет информации. Вы можете добавить новый курс.",
+      "SEARCH_PLACEHOLDER": "Введите запрос",
+      "LOAD_MORE_BUTTON": "Загрузить еще"
+    },
+    "COURSE": {
+      "DATE_HINT": "Дата",
+      "DURATION_HINT": "Длительность",
+      "EDIT_BUTTON": "Правка",
+      "DELETE_BUTTON": "Удалить"
+    },
+    "HEADER": {
+      "LOG_OUT": "Выйти",
+      "COURSES": "Курсы"
+    }
+  }
+}

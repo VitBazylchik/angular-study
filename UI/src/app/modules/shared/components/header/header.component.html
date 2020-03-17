@@ -1,0 +1,26 @@
+<header class="header">
+  <div class="container">
+    <div class="flex-around header-dark">
+      <app-logo></app-logo>
+      <div *ngIf="isAuthenticated$ | async">
+        <select #select class="select" (change)=changeLanguage(select.value)>
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+        </select>
+        <app-button
+          [text]="userInfo$ | async"
+          type="button"
+          [clear]="true"
+        ></app-button>
+        <app-button
+          (btnClick)="logOut()"
+          text="{{'PAGES.HEADER.LOG_OUT' | translate}}"
+          type="button"
+          [clear]="true"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <p class="text" *ngIf="isAuthenticated$ | async">{{'PAGES.HEADER.COURSES' | translate}}</p>
+</div>

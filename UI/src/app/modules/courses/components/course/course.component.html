@@ -1,0 +1,51 @@
+<article class="course" [appFreshCourse]="course" [ngClass]="{top: course.isTopRated}">
+  <div class="row align-items-center">
+    <div class="col-9">
+      <div class="flex-around">
+        <h2>
+          {{ course.name | uppercase }}
+          <mat-icon *ngIf="course.isTopRated">star</mat-icon>
+        </h2>
+
+        <div class="information-container">
+          <div class="information" *ngIf="course.length">
+            <mat-icon class="info-icon">access_time</mat-icon>
+            {{'PAGES.COURSE.DURATION_HINT' | translate}}: {{ course.length | duration }}
+          </div>
+          <div class="information">
+            <mat-icon class="info-icon">calendar_today</mat-icon>
+            {{'PAGES.COURSE.DATE_HINT' | translate}}: {{ course.date | date: 'dd MMM yyyy' }}
+          </div>
+        </div>
+
+      </div>
+      <p class="course-text">
+        {{ course.description }}
+      </p>
+      <p>
+        Authors: <span class="course-authors" *ngFor="let author of course.authors">
+          {{ author.name }}
+          {{ author.lastName }},
+        </span>
+      </p>
+    </div>
+    <div class="col-3 center">
+      <app-button
+        class="api-btn"
+        (btnClick)="onEdit()"
+        text="{{'PAGES.COURSE.EDIT_BUTTON' | translate}}"
+        type="button"
+        [colored]="true"
+        icon="edit"
+      ></app-button>
+      <app-button
+        class="api-btn"
+        (btnClick)="onDelete()"
+        text="{{'PAGES.COURSE.DELETE_BUTTON' | translate}}"
+        type="button"
+        [colored]="true"
+        icon="delete"
+      ></app-button>
+    </div>
+  </div>
+</article>

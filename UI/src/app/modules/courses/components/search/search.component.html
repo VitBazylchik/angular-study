@@ -1,0 +1,10 @@
+<form class="search-form">
+  <app-text-input
+    class="search-input"
+    type="text"
+    required="true"
+    name="search"
+    placeholder="{{'PAGES.LIST_OF_COURSES.SEARCH_PLACEHOLDER' | translate}}"
+    (inputChange)="onSearch($event)"
+  ></app-text-input>
+</form>

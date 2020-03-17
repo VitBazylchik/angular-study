@@ -1,0 +1,20 @@
+<div class="column">
+  <p class="input-label" *ngIf="labelText" >
+    {{labelText}}
+    <span *ngIf="invalid" class="hint">{{hintText}}</span>
+  </p>
+  <input
+    *ngIf="type !== 'textarea'"
+    [type]="type"
+    [ngClass]="{'input': true, 'long': long, 'invalid': invalid}"
+    [placeholder]="placeholder"
+    (input)="onChange($event.target.value)"
+    [value]='value'>
+  <textarea
+    *ngIf="type === 'textarea'"
+    [ngClass]="{'input': true, 'textarea': true, 'long': long, 'invalid': invalid}"
+    [placeholder]="placeholder"
+    [value]='value'
+    (input)="onChange($event.target.value)"
+  ></textarea>
+</div>

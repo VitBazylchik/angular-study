@@ -1,0 +1,16 @@
+<div [formGroup]="authorsGroup" class="author-form" *ngIf="isOpen">
+  <h3 class="author-header">Author {{numOfAuthor}}:</h3>
+  <app-reactive-text-input
+    formControlName="name"
+    type="text"
+    placeholder="Enter name"
+    labelText="Name:"
+  ></app-reactive-text-input>
+  <app-reactive-text-input
+    formControlName="lastName"
+    class="author-surname"
+    type="text"
+    placeholder="Enter surname"
+    labelText="Surname:"
+  ></app-reactive-text-input>
+</div>

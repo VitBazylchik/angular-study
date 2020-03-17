@@ -1,0 +1,13 @@
+@import '~src/assets/variables.scss';
+
+.search {
+  &-form {
+    display: flex;
+    align-items: center;
+  }
+
+  &-input {
+    max-width: 300px;
+    font-size: 18px;
+  }
+}

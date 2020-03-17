@@ -1,0 +1,42 @@
+@import "../../../../../assets/variables.scss";
+
+.input {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  outline: none;
+  font-size: $mainFontSize;
+  font-family: inherit;
+
+  &:focus {
+    border: 1px solid rgb(0, 89, 255);
+  }
+
+  &:hover {
+    box-shadow: 0 0 5px gray inset;
+  }
+
+  &-label {
+    font-weight: bold;
+    font-size: 16px;
+    flex-basis: 100%;
+  }
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.long {
+  width: 100%;
+}
+
+.hint {
+  margin-left: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
