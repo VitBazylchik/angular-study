@@ -10,11 +10,11 @@
         <div class="information-container">
           <div class="information" *ngIf="course.length">
             <mat-icon class="info-icon">access_time</mat-icon>
-            Duration: {{ course.length | duration }}
+            {{'PAGES.COURSE.DURATION_HINT' | translate}}: {{ course.length | duration }}
           </div>
           <div class="information">
             <mat-icon class="info-icon">calendar_today</mat-icon>
-            Date: {{ course.date | date: 'dd MMM yyyy' }} 
+            {{'PAGES.COURSE.DATE_HINT' | translate}}: {{ course.date | date: 'dd MMM yyyy' }}
           </div>
         </div>
 
@@ -29,19 +29,19 @@
         </span>
       </p>
     </div>
-    <div class="col-3">
-      <app-button 
+    <div class="col-3 center">
+      <app-button
         class="api-btn"
         (btnClick)="onEdit()"
-        text="Edit"
+        text="{{'PAGES.COURSE.EDIT_BUTTON' | translate}}"
         type="button"
         [colored]="true"
         icon="edit"
       ></app-button>
-      <app-button 
+      <app-button
         class="api-btn"
         (btnClick)="onDelete()"
-        text="Delete"
+        text="{{'PAGES.COURSE.DELETE_BUTTON' | translate}}"
         type="button"
         [colored]="true"
         icon="delete"

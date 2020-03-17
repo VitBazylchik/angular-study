@@ -27,7 +27,7 @@ import { CoursesEffects } from './store/courses.effects';
     StoreModule.forFeature(coursesFeatureKey, coursesReducer),
     EffectsModule.forFeature([CoursesEffects]),
   ],
-  exports: [ListOfCoursesComponent, AddCourseComponent],
+  exports: [],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]
 })
 export class CoursesModule { }

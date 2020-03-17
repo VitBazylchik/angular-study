@@ -4,14 +4,14 @@
     <div class="add-button-wrapper">
       <app-button
         [routerLink]="['/courses/new']"
-        text="+ Add course"
+        text="+ {{'PAGES.LIST_OF_COURSES.ADD_BUTTON' | translate}}"
         type="button"
         [colored]='true'
       ></app-button>
     </div>
 
-    <h2 *ngIf="!courses$" class="no-data">
-      No data. Feel free to add new course.
+    <h2 *ngIf="!(courses$ | async) as courses" class="no-data">
+      {{'PAGES.LIST_OF_COURSES.NO_DATA' | translate}}
     </h2>
 
     <app-course
@@ -20,11 +20,11 @@
       (delete)="deleteCourse($event)"
     ></app-course>
 
-    <div *ngIf="courses$"
+    <div *ngIf="(courses$ | async) as courses"
       class="more-button-wrapper">
       <app-button
         type="button"
-        text="Load more"
+        text="{{'PAGES.LIST_OF_COURSES.LOAD_MORE_BUTTON' | translate}}"
         [long]="true"
         (btnClick)="loadCourses()"
       ></app-button>

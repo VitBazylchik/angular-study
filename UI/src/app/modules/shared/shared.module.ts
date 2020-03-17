@@ -15,12 +15,14 @@ import { TextInputComponent } from './components/text-input/text-input.component
 import { ButtonComponent } from './components/button/button.component';
 import { LoadingBlockComponent } from './components/loading-block/loading-block.component';
 import { ReactiveTextInputComponent } from './components/reactive-text-input/reactive-text-input.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const NgModules = [
   CommonModule,
   FormsModule,
   MatIconModule,
   ReactiveFormsModule,
+  TranslateModule,
 ];
 
 const declarations = [
